@@ -635,7 +635,7 @@ function GameController(){
                 timeout *= gameController.getNumberOfCustomers();
             }
             _restaurant.newCustomerArrives(customer, timeout);
-            await sleep(10000 + Math.random() * 5000);
+            await sleep(rnd(10000, 15000));
         }
     }
     
@@ -648,7 +648,7 @@ function GameController(){
             let landmarkID = _restaurant.locateCustomer(customerName);
             if (landmarkID !== null){
                 let customer = _restaurant.landmarks[landmarkID].customersList[0];
-                await sleep(3000 + Math.random() * 5000);
+                await sleep(rnd(3000, 8000));
                 let subScore, subScoreWrong;
                 if (request.type === 'food'){
                     subScore = _manager.subscribe('new_order', (msg) => {
@@ -733,9 +733,9 @@ function GameController(){
             "bring me"
         ];
         let please = ["please", "thanks", "thank you", ""];
-        let greetingIdx = Math.round(Math.random()*(greetings.length - 1));
-        let requestIdx = Math.round(Math.random()*(requests.length - 1));
-        let pleaseIdx = Math.round(Math.random()*(please.length - 1));
+        let greetingIdx = rnd(0, greetings.length - 1);
+        let requestIdx = rnd(0, requests.length - 1);
+        let pleaseIdx = rnd(0, please.length - 1);
     
         return `${greetings[greetingIdx]} ${requests[requestIdx]} ${foodName} ${please[pleaseIdx]}`;
     
@@ -757,9 +757,9 @@ function GameController(){
             "the total"
         ];
         let please = ["please", "thanks", "thank you", ""];
-        let greetingIdx = Math.round(Math.random()*(greetings.length - 1));
-        let requestIdx = Math.round(Math.random()*(requests.length - 1));
-        let pleaseIdx = Math.round(Math.random()*(please.length - 1));
+        let greetingIdx = rnd(0, greetings.length - 1);
+        let requestIdx = rnd(0, requests.length - 1);
+        let pleaseIdx = rnd(0, please.length - 1);
     
         return `${greetings[greetingIdx]} ${requests[requestIdx]} ${please[pleaseIdx]}`;
     
@@ -800,6 +800,18 @@ function GameController(){
             _manager.publish('command_executed', {});
         }
     });
+
+    function rnd(min, max){
+        let random = min + Math.floor(Math.random() * (max - min + 1));
+        if (random > max){
+            random = max;
+        }
+        if (random < min){
+            random = min;
+        }
+
+        return parseInt(random);
+    }
     
     async function runTask1(seed){
         disableCommandButtons(true);
@@ -812,16 +824,22 @@ function GameController(){
             maxMark: 1,
             maxScore: _utNCommandsT1
         });
+        let commands = [
+            'teleport to',
+            'move to',
+            'go to'
+        ];
         for (let i = 0; i < _utNCommandsT1; i++){
-            let randomIdx = Math.round(Math.random()*(_restaurant.getRobotsIds().length-1));
+            let randomIdx = rnd(0, _restaurant.getRobotsIds().length-1);
             let robotID = _restaurant.getRobotsIds()[randomIdx];
+            let rndCommandIdx = rnd(0, commands.length - 1);
             let landmarkID = null;
             while (landmarkID === null || landmarkID.startsWith('home')){
-                let randomLandmarkIdx = Math.round(Math.random()*(_restaurant.getFreeLandmarks().length-1));
+                let randomLandmarkIdx = rnd(0, _restaurant.getFreeLandmarks().length-1);
                 landmarkID = _restaurant.getFreeLandmarks()[randomLandmarkIdx];
             }
             let curTest = {
-                command: `${robotID} teleport to ${_restaurant.getLandmark(landmarkID).getIDAsNaturalLanguage()}`,
+                command: `${robotID} ${commands[rndCommandIdx]} ${_restaurant.getLandmark(landmarkID).getIDAsNaturalLanguage()}`,
                 expected: {robotID: robotID, landmarkID: landmarkID}
             };
             _manager.logEvent(`Generated new random command: ${curTest.command}`);
@@ -884,10 +902,10 @@ function GameController(){
         let yellow = _restaurant.getRobot('yellow');
         
         // first test: the landmark is free
-        let robotIdx = Math.round(Math.random()*(_restaurant.getRobotsIds().length-1));
+        let robotIdx = rnd(0, _restaurant.getRobotsIds().length-1);
         let robotID = _restaurant.getRobotsIds()[robotIdx];
         let robot = _restaurant.getRobot(robotID);
-        let randomLandmarkIdx = Math.round(Math.random()*(_restaurant.getFreeLandmarks().length-1));
+        let randomLandmarkIdx = rnd(0, _restaurant.getFreeLandmarks().length-1);
         let landmarkID = _restaurant.getLandmarksIds()[randomLandmarkIdx];
     
         _manager.logEvent(`Starting test 1: ${robotID} must teleport to ${landmarkID}`);
@@ -908,14 +926,14 @@ function GameController(){
         _manager.logEvent(`End of test 1`);
         
         // second test: the landmark is not free
-        robotIdx = Math.round(Math.random()*(_restaurant.getRobotsIds().length-1));
+        robotIdx = rnd(0, _restaurant.getRobotsIds().length-1);
         robotID = _restaurant.getRobotsIds()[robotIdx];
         robot = _restaurant.getRobot(robotID);
         let otherRobotID = (robotIdx < _restaurant.getRobotsIds().length-1) ? _restaurant.getRobotsIds()[robotIdx + 1] : _restaurant.getRobotsIds()[0];
         let otherRobot = _restaurant.getRobot(otherRobotID);
         landmarkID = null;
         while (landmarkID === null || landmarkID.startsWith('home')){
-            randomLandmarkIdx = Math.round(Math.random()*(_restaurant.getFreeLandmarks().length-1));
+            randomLandmarkIdx = rnd(0, _restaurant.getFreeLandmarks().length-1);
             landmarkID = _restaurant.getFreeLandmarks()[randomLandmarkIdx];
         }
         await gameController.teleportRobotToLandmark(otherRobotID, landmarkID);
@@ -939,14 +957,14 @@ function GameController(){
     
         //third test: the landmark is not free and the other robot is
         // temporarily busy
-        robotIdx = Math.round(Math.random()*(_restaurant.getRobotsIds().length-1));
+        robotIdx = rnd(0, _restaurant.getRobotsIds().length-1);
         robotID = _restaurant.getRobotsIds()[robotIdx];
         robot = _restaurant.getRobot(robotID);
         otherRobotID = (robotIdx < _restaurant.getRobotsIds().length-1) ? _restaurant.getRobotsIds()[robotIdx + 1] : _restaurant.getRobotsIds()[0];
         otherRobot = _restaurant.getRobot(otherRobotID);
         landmarkID = null;
         while (landmarkID === null || landmarkID.startsWith('home')){
-            randomLandmarkIdx = Math.round(Math.random()*(_restaurant.getFreeLandmarks().length-1));
+            randomLandmarkIdx = rnd(0, _restaurant.getFreeLandmarks().length-1);
             landmarkID = _restaurant.getFreeLandmarks()[randomLandmarkIdx];
         }
     
@@ -961,7 +979,7 @@ function GameController(){
                         otherRobot.htmlElement.setStatus('', '');
                         otherRobot.releaseRobot(otherToken);
                         resolve();
-                    }, 3500 + Math.random()*3000);
+                    }, rnd(3500, 6000));
                 }
             );
         });
@@ -1069,8 +1087,8 @@ function GameController(){
             maxMark: 1.5,
             maxScore: 3
         });
-        let rndTable = Math.round(1 + Math.random()*2);
-        let rndSeat = Math.round(1 + Math.random()*3);
+        let rndTable = rnd(1, 3);
+        let rndSeat = rnd(1, 4);
         _restaurant.newCustomerArrives(_utCustomersNames[0], 0);
         let customer = _restaurant.getLandmark('reception').customersList.pop();
         let landmark = _restaurant.getLandmark(`table-${rndTable}-${rndSeat}`);
@@ -1086,7 +1104,7 @@ function GameController(){
         let topicHandler;
         if (Math.random() > 0.5){
             let nAvailableFoods = Object.keys(_restaurant.menu).length;
-            let randomFoodIdx = Math.round(Math.random()*(nAvailableFoods - 1));
+            let randomFoodIdx = rnd(0, nAvailableFoods - 1);
             let randomFood = Object.values(_restaurant.menu)[randomFoodIdx];
             request = createFoodRequest(`${randomFood.preposition} ${randomFood.foodName}`.trim())
             topicHandler = 'new_order';
@@ -1144,8 +1162,8 @@ function GameController(){
             maxMark: 1.5,
             maxScore: 3
         });
-        let rndTable = Math.round(1 + Math.random()*2);
-        let rndSeat = Math.round(1 + Math.random()*3);
+        let rndTable = rnd(1, 3);
+        let rndSeat = rnd(1, 4);
         _restaurant.newCustomerArrives(_utCustomersNames[0], 0);
         let customer = _restaurant.getLandmark('reception').customersList.pop();
         let landmark = _restaurant.getLandmark(`table-${rndTable}-${rndSeat}`);
@@ -1165,7 +1183,7 @@ function GameController(){
         landmark.servedFood = oldFood;
         landmark.displayElementAtLocation(oldFood, `meal${rndSeat}`);
         let nAvailableFoods = Object.keys(_restaurant.menu).length;
-        let randomFoodIdx = Math.round(Math.random()*(nAvailableFoods - 1));
+        let randomFoodIdx = rnd(0, nAvailableFoods - 1);
         let randomFood = Object.values(_restaurant.menu)[randomFoodIdx];
         
         let subTeleport = _manager.subscribe(
@@ -1217,7 +1235,7 @@ function GameController(){
         Math.seedrandom(seed);
         setupGameSubscribers();
         let maxMark = 3;
-        let nCustomers = 1 + Math.round(Math.random()*5.4);
+        let nCustomers = rnd(3, 6);
         _utCustomersNames.sort(() => Math.random() - 0.5);
         let customersLogic = {};
         let nAvailableFoods = Object.keys(_restaurant.menu).length;
@@ -1226,9 +1244,9 @@ function GameController(){
             customersLogic[_utCustomersNames[i]] = {
                 requests: []
             };
-            let nOrders = 1 + Math.round(Math.random()*2.4);
+            let nOrders = rnd(2, 4);
             for (let j = 0; j < nOrders; j++){
-                let randomFoodIdx = Math.round(Math.random()*(nAvailableFoods - 1));
+                let randomFoodIdx = rnd(0, nAvailableFoods - 1);
                 let randomFood = Object.values(_restaurant.menu)[randomFoodIdx];
                 customersLogic[_utCustomersNames[i]].requests.push(
                     {
