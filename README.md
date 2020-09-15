@@ -41,9 +41,9 @@ The bonus mark from task 1, if achieved, can be used to recover marks lost in th
 
 ## Randomness
 
-Each task simulation (1 to 6) makes use of a *random seed* to generate pseudo random events for the task. These pseudo random events can be replicated by using the same seed when running a simulation on the same browser (see instructions on the video/slides). Due to the randomness of the events, *your code should be able to score well under many random conditions for the same simulation task*.
+Each task simulation (1 to 6) makes use of a *random seed* to generate pseudo random events for the task. These pseudo random events can be replicated by using the same seed when running a simulation on the same browser (see instructions on the video/slides). Due to the randomness of the events, **your code should be able to score well under many random conditions for the same simulation task**.
 
-However, to ensure that all assignments are scored against the same simulated conditions, *the marking process will make use of a set of fixed seeds*. The chosen seeds will be made public after the submission deadline. The code will be tested on Chrome and Mozilla Firefox. If a task will achieve different scores on the two browsers, that task will be marked against the most favourable outcome.
+However, to ensure that all assignments are scored against the same simulated conditions, **the marking process will make use of a set of fixed seeds**. The chosen seeds will be made public after the submission deadline. The code will be tested on Chrome and Mozilla Firefox. If a task will achieve different scores on the two browsers, that task will be marked against the most favourable outcome.
 
 # Submission
 
