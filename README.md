@@ -51,7 +51,7 @@ However, to ensure that all assignments are scored against the same simulated co
 
 To control the game and produce a solution you can only use the pre-declared global variable *gameController*. Controlling the game by means of other variables is forbidden and it will lead to penalties that, in some cases (e.g. illegal score yielding), can lead to 0 marks for this assignment. For example, you cannot move the robots around by using their HTML elements to draw them somewhere else. Similarly, you cannot publish messages to topics used by the game logic with the only purpose of yielding free points. However, you can create additional variables or data structures needed to keep track of the information generated during the game and to manage the logic flow of the application.
 
-The repository with the application includes a directory called *solution*. In this directory are seven files where you will need to write the code solving each task and the overall game. Some of them already include a function. In case there is a function, you will need to produce the code for these functions (without changing the name of the function and its arguments). You can use the file common.js to place shared variables, data structures and functions that you may want to use in the other solution files. You will only need to submit the files contained in the directory 'solution'. Any code written outside these files will not be marked.
+The repository with the application includes a directory called *solution*. In this directory are seven files where you will need to write the code solving each task and the overall game. Some of them already include a function. In case there is a function, you will need to produce the code for this functions (without changing the name of the function and its arguments). You can use the file common.js to place shared variables, data structures and functions that you may want to use in the other solution files. You will only need to submit the files contained in the directory 'solution'. Any code written outside these files will not be marked.
 
 To prepare the files for submission:
 
@@ -61,7 +61,7 @@ To prepare the files for submission:
 
 # Link to the Challenge Environment
 
-The code for the application is available on github at this URL:
+The code for the application is available on Github at this URL:
 
 [https://github.com/jvitale/une_ICT100_assignment4](https://github.com/jvitale/une_ICT100_assignment4)
 
@@ -70,6 +70,20 @@ To run the application you have three options:
 1. Since this application do not require a live server, you can simply download the zip with the application, extract the file on your PC, and open the index.html file in your browser (only Mozilla Firefox or Chrome are fully supported);
 2. You can use codesandbox.io as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public));
 3. You can use VSC as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public)).
+
+# Bugs
+
+This is the first year that we offer this subject and this assignment was never tested before. We checked the code for bugs, but it can still be possible that the code still contains some.
+
+If you believe that the code may have a bug, take a screenshot of the error and provide a description of what happened. Then send this information via e-mail to Jonathan (jvitale@une.edu.au).
+
+# Help
+
+If you get stuck, first take a big breath in and relax. You are here to learn and we are here to help you learning. You can contact us on the Slack channel, post on the forum or send a private e-mail. Pay attention to not share piece of your code. Exchanging ideas about possible solutions with the other students is fine and encouraged (without spoiling too much!).
+
+A general suggestion is to always try to deal with one small problem at a time. If the problem is still too big, you can probably divide it in further subproblems. Also, do not immediately dive into the code. First try to mentally solve the problem in steps, then think how can you write those steps as pieces of code. 
+
+Remember, to climb a mountain you need to take many small steps and the journey will feel hard on your body but at the end you will be able to appreciate a wonderful view and you will be able to climb higher mountains.
 
 # Additional resources
 
