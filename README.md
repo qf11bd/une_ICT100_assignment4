@@ -79,11 +79,11 @@ If you believe that the code may have a bug, take a screenshot of the error and 
 
 # Help
 
-If you get stuck, first take a big breath in and relax. You are here to learn and we are here to help you learning. You can contact us on the Slack channel, post on the forum or send a private e-mail. Pay attention to not share piece of your code. Exchanging ideas about possible solutions with the other students is fine and encouraged (without spoiling too much!).
+If you get stuck, first take a big breath in and relax. You are here to learn and we are here to help you learning. You can contact us on the Slack channel, post on the forum or send a private e-mail. Pay attention to not share your code. Exchanging ideas about possible solutions with the other students is fine and encouraged (without spoiling too much!).
 
-A general suggestion is to always try to deal with one small problem at a time. If the problem is still too big, you can probably divide it in further subproblems. Also, do not immediately dive into the code. First try to mentally solve the problem in steps, then think how can you write those steps as pieces of code. 
+A general suggestion is to always try to deal with one small problem at a time. If the problem still looks too big, you can probably divide it in further subproblems. Also, do not immediately dive into the code. First try to mentally solve the problem by identifying the necessary steps, then think how you can write those steps as code.
 
-Remember, to climb a mountain you need to take many small steps and the journey will feel hard on your body but at the end you will be able to appreciate a wonderful view and you will be able to climb higher mountains.
+Remember, to climb a mountain you need to take many small steps and the journey will feel hard on your body but at the end you will be able to appreciate a wonderful view and in the future you will be trained enough to climb higher mountains.
 
 # Additional resources
 
