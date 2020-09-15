@@ -37,6 +37,8 @@ It is possible to score an extra 0.5 bonus mark. To score the bonus mark you mus
 * Achieve 1 mark in task 1; and
 * Enable the second button to handle voice commands by listening to the user’s voice command, and then handle the obtained speech transcription similarly as in task 1.
 
+There is no simulation to mark this additional task. This bonus task will be assessed manually by inspecting the code and testing if the button enables the use of voice commands. To get the bonus mark it is not important if the speech recognition system fails to correctly transcribe the voice command.
+
 The bonus mark from task 1, if achieved, can be used to recover marks lost in the other tasks 2 - 6 of this assignment. However, the maximum achievable mark for this assignment remains 10 marks. As such, if for example your final mark for this assignment is 9.7, a 0.5 bonus mark will lead you to get 10 marks.
 
 ## Randomness
