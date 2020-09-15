@@ -67,7 +67,7 @@ To run the application you have three options:
 
 1. Since this application do not require a live server, you can simply download the zip with the application, extract the file on your PC, and open the index.html file in your browser (only Mozilla Firefox or Chrome are fully supported);
 2. You can use codesandbox.io as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public));
-You can use VSC as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public)).
+3. You can use VSC as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public)).
 
 # Additional resources
 
