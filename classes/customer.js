@@ -14,19 +14,22 @@ class Customer {
     }
 
     // the customer has a request and requires attention
-    requireAttention(request, waitTime){
+    requireAttention(request, waitForever){
         if (this.htmlElement === null){
             throw(Error(this.name + ' cannot require attention since they already left the restaurant!'));
         }
         if (this.currentRequest !== null){
-            throw(Error(this.name + ' is already requiring attention. Current request: ' + this.currentRequest));
+            throw(Error(`${this.name} is already requiring attention. Current request: ${this.currentRequest[0]}`));
         }
-        if (!this.currentSeat === null){
-            throw(Error(this.name + ' cannot require attention because not seated. Current request: ' + this.currentRequest));
+        if (this.waitingTimeout !== null){
+            throw(Error(this.name + ' is already waiting and cannot require attention again. Perhaps they ordered food or asked for the bill?'));
+        }
+        if (this.currentSeat === null){
+            throw(Error(`${this.name} cannot require attention because not seated.`));
         }
         let customerLocation = gameController.locateCustomer(this.name);
         if (customerLocation !== null){
-            this.currentRequest = [request, waitTime];
+            this.currentRequest = [request, waitForever];
             this.manager.logEvent(this.name + ' is requiring attention');
             setTimeout(() => {
                 this.manager.publish(
@@ -38,7 +41,12 @@ class Customer {
                 );
             }, 1500); 
             this.htmlElement.setStatus(`${this.currentSeat}-status require-attention`, '');
-            this.waitToBeAttended(25000*gameController.getNumberOfCustomers());
+            if (!waitForever){
+                this.waitToBeAttended(20000*gameController.getNumberOfCustomers());
+            } else {
+                this.waitToBeAttended(0);
+            }
+            
             return true;
         } else {
             this.manager.logError(this.name + ' not found. Was the customer picked up by a robot or did they leave the restaurant?');
