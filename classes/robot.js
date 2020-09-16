@@ -200,7 +200,7 @@ class Robot {
                 throw(Error('It is not possible to move a customer once already seated'));
             }
 
-            customer = robotLandmark.customersList.pop();
+            customer = robotLandmark.customersList.shift();
             customer.clearWaitingTimeout();
 
             this.htmlElement.setStatus('balloon', 'Hello!');
@@ -275,7 +275,7 @@ class Robot {
         this.startProcess(`attendCustomerRequest()`);
         let robotLandmark, customer;
         let request = null;
-        let waitingTime = null;
+        let waitForever = null;
         try {
             robotLandmark = this.curRobotLandmark;
             if (!robotLandmark.isSeat) {
@@ -291,7 +291,7 @@ class Robot {
 
             customer.clearWaitingTimeout();
             customer.htmlElement.setStatus('','');
-            [request, waitingTime] = customer.currentRequest;
+            [request, waitForever] = customer.currentRequest;
             customer.currentRequest = null;
 
             this.htmlElement.setStatus('balloon', 'How can<br/>I help?');
@@ -310,7 +310,12 @@ class Robot {
             await this.sleep(1500);
             this.htmlElement.setStatus('', '');
 
-            customer.waitToBeAttended(waitingTime*1000 + 25000*nCustomersAtRestaurant);
+            if (!waitForever){
+                customer.waitToBeAttended(10000 + 25000*nCustomersAtRestaurant);
+            } else {
+                customer.waitToBeAttended(0);
+            }
+            
         } catch (error) {
             return error;
         } finally {
