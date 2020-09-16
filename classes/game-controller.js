@@ -3,6 +3,7 @@ function GameController(){
     let _restaurant = new Restaurant(_manager);
     let _guiManager = new GUIManager(_manager);
     let _requestGETParsed = false;
+    let _testCustomers = [];
 
     let _scenarioGraphics = {
         'table-1': new GraphicElement('landmark-table-1', '1', 'table', 'table-label'),
@@ -162,6 +163,18 @@ function GameController(){
     _restaurant.getRobot('pink').htmlElement.setLabelOrientation('top');
     _restaurant.getRobot('yellow').htmlElement.setLabelOrientation('left');
 
+    function rnd(min, max){
+        let random = min + Math.floor(Math.random() * (max - min + 1));
+        if (random > max){
+            random = max;
+        }
+        if (random < min){
+            random = min;
+        }
+
+        return parseInt(random);
+    }
+
     function assertRobot(robotID){
         if (!(robotID in _restaurant.robots)){
             let e = Error(robotID + ' does not exist. Maybe checks for typos.');
@@ -176,6 +189,51 @@ function GameController(){
             _manager.logError(e.stack);
             throw(e);
         }
+    }
+
+    function createFoodRequest(foodName){
+        let greetings = [
+            "Hi,", "Hello,", "Hey,", "Hi there,", ""
+        ];
+        let requests = [
+            "can I order",
+            "I would like to order",
+            "I'd like",
+            "may I order",
+            "I want",
+            "bring me"
+        ];
+        let please = ["please", "thanks", "thank you", ""];
+        let greetingIdx = rnd(0, greetings.length - 1);
+        let requestIdx = rnd(0, requests.length - 1);
+        let pleaseIdx = rnd(0, please.length - 1);
+    
+        return `${greetings[greetingIdx]} ${requests[requestIdx]} ${foodName} ${please[pleaseIdx]}`;
+    
+    }
+    
+    function createBillRequest(){
+        let greetings = [
+            "Hi,", "Hello,", "Hey,", "Hi there,", ""
+        ];
+        let requests = [
+            "can I have the bill",
+            "I would like to pay",
+            "I'd like the check",
+            "may I have the bill",
+            "I want the bill",
+            "bring me the total",
+            "the check",
+            "the bill",
+            "the total"
+        ];
+        let please = ["please", "thanks", "thank you", ""];
+        let greetingIdx = rnd(0, greetings.length - 1);
+        let requestIdx = rnd(0, requests.length - 1);
+        let pleaseIdx = rnd(0, please.length - 1);
+    
+        return `${greetings[greetingIdx]} ${requests[requestIdx]} ${please[pleaseIdx]}`;
+    
     }
 
     this.sleep = async (ms) => {
@@ -574,6 +632,66 @@ function GameController(){
         }
     }
 
+    // DEBUG
+
+    this.debug = {
+        generateWaitingCustomer(waitingTime){
+            let rndIdx = rnd(0, _utCustomersNames.length - 1);
+            let [customerName, customerSurname] = _utCustomersNames[rndIdx].split(' ');
+            let rndNum = rnd(1, 20);
+            customerName = `${customerName} T-${rndNum}`;
+            _restaurant.newCustomerArrives(customerName, waitingTime);
+            _testCustomers.push(customerName);
+            return customerName;
+        },
+
+        generateCustomerRequest(customerName, request, waitForever){
+            let customer = _restaurant.getCustomerByName(customerName);
+            if (customer === null){
+                throw(Error(`It is not possible to find the customer ${customerName}. Did they leave the restaurant?`));
+            }
+            if (customer)
+            customer.requireAttention(request, waitForever);
+        },
+
+        generateRandomCustomerRequest(customerName, waitForever){
+            let request;
+            if (Math.random() > -0.5){
+                let nAvailableFoods = Object.keys(_restaurant.menu).length;
+                let rndFoodIdx = rnd(0, nAvailableFoods - 1);
+                let foodName = Object.values(_restaurant.menu)[rndFoodIdx].foodName;
+                Object.values(_restaurant.menu)[rndFoodIdx];
+                request = createFoodRequest(foodName);
+            } else {
+                request = createBillRequest();
+            }
+            this.generateCustomerRequest(customerName, request, waitForever);
+            return request;
+        },
+
+        generateSeatedCustomer(landmarkID){
+            assertLandmark(landmarkID);
+            let landmark = _restaurant.getLandmark(landmarkID);
+            if (!landmark.isSeat){
+                throw(Error(`${landmarkID} is not a valid seat.`));
+            }
+            if (landmark.customersList.length > 0){
+                throw(Error(`There is already someone seated at ${landmarkID}.`));
+            }
+            this.generateWaitingCustomer(0);
+            let customer = _restaurant.getLandmark('reception').customersList.pop();
+            customer.clearWaitingTimeout();
+            let [t, tn, seat] = landmarkID.split('-');
+            customer.currentSeat = `seat${seat}`;
+            landmark.customersList.push(customer);
+            landmark.displayElementAtLocation(
+                customer,
+                customer.currentSeat
+            )
+            customer.htmlElement.getTileElement().classList.value = 'user-seated';
+        }
+    }
+
     // SPEECH-TO-TEXT
     
     //let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
@@ -693,7 +811,7 @@ function GameController(){
                         }
                     });
                 }
-                customer.requireAttention(request.requestStr, request.prepTime);
+                customer.requireAttention(request.requestStr, false);
                 let subAttendance, subLeave;
                 let waitAttendancePromise = new Promise(
                     (resolve) => {
@@ -718,51 +836,6 @@ function GameController(){
                 break;
             }
         }
-    }
-    
-    function createFoodRequest(foodName){
-        let greetings = [
-            "Hi,", "Hello,", "Hey,", "Hi there,", ""
-        ];
-        let requests = [
-            "can I order",
-            "I would like to order",
-            "I'd like",
-            "may I order",
-            "I want",
-            "bring me"
-        ];
-        let please = ["please", "thanks", "thank you", ""];
-        let greetingIdx = rnd(0, greetings.length - 1);
-        let requestIdx = rnd(0, requests.length - 1);
-        let pleaseIdx = rnd(0, please.length - 1);
-    
-        return `${greetings[greetingIdx]} ${requests[requestIdx]} ${foodName} ${please[pleaseIdx]}`;
-    
-    }
-    
-    function createBillRequest(){
-        let greetings = [
-            "Hi,", "Hello,", "Hey,", "Hi there,", ""
-        ];
-        let requests = [
-            "can I have the bill",
-            "I would like to pay",
-            "I'd like the check",
-            "may I have the bill",
-            "I want the bill",
-            "bring me the total",
-            "the check",
-            "the bill",
-            "the total"
-        ];
-        let please = ["please", "thanks", "thank you", ""];
-        let greetingIdx = rnd(0, greetings.length - 1);
-        let requestIdx = rnd(0, requests.length - 1);
-        let pleaseIdx = rnd(0, please.length - 1);
-    
-        return `${greetings[greetingIdx]} ${requests[requestIdx]} ${please[pleaseIdx]}`;
-    
     }
     
     function unregisterSubscribers(){
@@ -800,18 +873,6 @@ function GameController(){
             _manager.publish('command_executed', {});
         }
     });
-
-    function rnd(min, max){
-        let random = min + Math.floor(Math.random() * (max - min + 1));
-        if (random > max){
-            random = max;
-        }
-        if (random < min){
-            random = min;
-        }
-
-        return parseInt(random);
-    }
     
     async function runTask1(seed){
         disableCommandButtons(true);
@@ -1148,7 +1209,7 @@ function GameController(){
                 _manager.unsubscribe(subRequest);
             }
         );
-        customer.requireAttention(request, 0);
+        customer.requireAttention(request, true);
     }
     
     async function runTask5(seed){
@@ -1235,7 +1296,7 @@ function GameController(){
         Math.seedrandom(seed);
         setupGameSubscribers();
         let maxMark = 3;
-        let nCustomers = rnd(3, 6);
+        let nCustomers = rnd(5, 8);
         _utCustomersNames.sort(() => Math.random() - 0.5);
         let customersLogic = {};
         let nAvailableFoods = Object.keys(_restaurant.menu).length;
@@ -1244,7 +1305,7 @@ function GameController(){
             customersLogic[_utCustomersNames[i]] = {
                 requests: []
             };
-            let nOrders = rnd(2, 4);
+            let nOrders = rnd(1, 3);
             for (let j = 0; j < nOrders; j++){
                 let randomFoodIdx = rnd(0, nAvailableFoods - 1);
                 let randomFood = Object.values(_restaurant.menu)[randomFoodIdx];
