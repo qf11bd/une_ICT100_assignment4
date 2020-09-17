@@ -106,7 +106,7 @@ Acquires a robot to ensure that no other processes can acquire the robot until i
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot to acquire (e.g. 'green')
-`waitForToken` | *boolean* | If `true` the returned $$\text{\color{green}{Promise}}$$ will be fulfilled only if the robot is not currently acquired or when all the other processes that acquired the robot releases it. If `false` the returned $$\text{\color{green}{Promise}}$$ will be fulfilled immediately, even if the robot is not available for acquisition. In this case, the returned token will have value `null`
+`waitForToken` | *boolean* | If `true` the returned <span style="color: green;">Promise</span> will be fulfilled only if the robot is not currently acquired or when all the other processes that acquired the robot releases it. If `false` the returned $$\text{\color{green}{Promise}}$$ will be fulfilled immediately, even if the robot is not available for acquisition. In this case, the returned token will have value `null`
 
 **Returns**
 
