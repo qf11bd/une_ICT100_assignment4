@@ -99,7 +99,7 @@ The game logic can be controlled by using the pre-declared global variable `game
 
 ### Handling concurrency
 
-```js async acquireRobot(robotID, waitForToken)```
+> async acquireRobot(robotID, waitForToken)
 
 Acquires a robot to ensure that no other processes can acquire the robot until it is released.
 
