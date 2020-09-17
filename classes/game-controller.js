@@ -753,12 +753,12 @@ function GameController(){
     async function customersGenerator(customers){
         await sleep(3000);
         for (let customer of customers){
-            let timeout = 25000;
+            let timeout = 10000;
             if (gameController.getNumberOfCustomers() > 0){
                 timeout *= gameController.getNumberOfCustomers();
             }
             _restaurant.newCustomerArrives(customer, timeout);
-            await sleep(rnd(10000, 15000));
+            await sleep(rnd(10000, 13000));
         }
     }
     
@@ -1301,7 +1301,7 @@ function GameController(){
         Math.seedrandom(seed);
         setupGameSubscribers();
         let maxMark = 3;
-        let nCustomers = rnd(5, 8);
+        let nCustomers = rnd(7, 9);
         _utCustomersNames.sort(() => Math.random() - 0.5);
         let customersLogic = {};
         let nAvailableFoods = Object.keys(_restaurant.menu).length;

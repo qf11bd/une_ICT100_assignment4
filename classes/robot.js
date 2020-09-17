@@ -311,7 +311,7 @@ class Robot {
             this.htmlElement.setStatus('', '');
 
             if (!waitForever){
-                customer.waitToBeAttended(10000 + 25000*nCustomersAtRestaurant);
+                customer.waitToBeAttended(10000 + 15000*nCustomersAtRestaurant);
             } else {
                 customer.waitToBeAttended(0);
             }

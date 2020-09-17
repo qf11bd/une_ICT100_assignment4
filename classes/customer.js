@@ -42,7 +42,7 @@ class Customer {
             }, 1500); 
             this.htmlElement.setStatus(`${this.currentSeat}-status require-attention`, '');
             if (!waitForever){
-                this.waitToBeAttended(20000*gameController.getNumberOfCustomers());
+                this.waitToBeAttended(18000*gameController.getNumberOfCustomers());
             } else {
                 this.waitToBeAttended(0);
             }
