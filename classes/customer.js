@@ -10,6 +10,8 @@ class Customer {
         this.wasBilled = false;
         this.paidBill = false;
         this.waitingTimeout = null;
+        this.remainingSeconds = null;
+        this.waitingInterval = null;
         this.manager = manager;
     }
 
@@ -127,6 +129,22 @@ class Customer {
             (resolve) => {
                 if (ms > 0){
                     this.waitingTimeout = setTimeout(resolve, ms);
+                    this.remainingSeconds = ms/1000;
+                    this.htmlElement.setLabel(`${this.name} <span style="font-size:8px">(${this.remainingSeconds})</span>`);
+                    this.waitingInterval = setInterval(() => {
+                        this.remainingSeconds--;
+                        if (this.remainingSeconds <= 0){
+                            clearInterval(this.waitingInterval);
+                            this.remainingSeconds = null;
+                        }
+                        try{
+                            if (this.remainingSeconds === null){
+                                this.htmlElement.setLabel(this.name);
+                            } else {
+                                this.htmlElement.setLabel(`${this.name} <span style="font-size:8px">(${this.remainingSeconds})</span>`);
+                            }
+                        } catch(err) {}
+                    }, 1000);
                 } else {
                     this.waitingTimeout = true;
                 }
@@ -146,8 +164,12 @@ class Customer {
         }
         if (this.waitingTimeout !== true){
             clearTimeout(this.waitingTimeout);
+            clearInterval(this.waitingInterval);
+            this.htmlElement.setLabel(this.name);
         }
         this.waitingTimeout = null;
+        this.waitingInterval = null;
+        this.remainingSeconds = null;
     }
 
 }
