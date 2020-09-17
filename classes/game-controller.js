@@ -645,7 +645,7 @@ function GameController(){
             return customerName;
         },
 
-        generateCustomerRequest(customerName, request, waitForever){
+        triggerCustomerRequest(customerName, request, waitForever){
             let customer = _restaurant.getCustomerByName(customerName);
             if (customer === null){
                 throw(Error(`It is not possible to find the customer ${customerName}. Did they leave the restaurant?`));
@@ -654,9 +654,9 @@ function GameController(){
             customer.requireAttention(request, waitForever);
         },
 
-        generateRandomCustomerRequest(customerName, waitForever){
+        generateRandomRequest(isFoodRequest){
             let request;
-            if (Math.random() > -0.5){
+            if (isFoodRequest){
                 let nAvailableFoods = Object.keys(_restaurant.menu).length;
                 let rndFoodIdx = rnd(0, nAvailableFoods - 1);
                 let foodName = Object.values(_restaurant.menu)[rndFoodIdx].foodName;
@@ -665,7 +665,12 @@ function GameController(){
             } else {
                 request = createBillRequest();
             }
-            this.generateCustomerRequest(customerName, request, waitForever);
+            return request;
+        },
+
+        triggerRandomCustomerRequest(customerName, waitForever){
+            let request = this.generateRandomRequest(Math.random() > 0.5);
+            this.triggerCustomerRequest(customerName, request, waitForever);
             return request;
         },
 
