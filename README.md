@@ -106,11 +106,11 @@ Acquires a robot to ensure that no other processes can acquire the robot until i
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot to acquire (e.g. 'green')
-`waitForToken` | *boolean* | If `true` the returned <span style="color: green;">Promise</span> will be fulfilled only if the robot is not currently acquired or when all the other processes that acquired the robot releases it. If `false` the returned $$\text{\color{green}{Promise}}$$ will be fulfilled immediately, even if the robot is not available for acquisition. In this case, the returned token will have value `null`
+`waitForToken` | *boolean* | If `true` the returned Promise will be fulfilled only if the robot is not currently acquired or when all the other processes that acquired the robot releases it. If `false` the returned Promise will be fulfilled immediately, even if the robot is not available for acquisition. In this case, the returned token will have value `null`
 
 **Returns**
 
-`acquisitionPromise`: *$$\text{\color{green}{Promise}}$$*. When fullfilled the promise will return an acquisition token (*integer*) if the acquisition succeeded or `null` if the acquisition failed.
+`acquisitionPromise`: *Promise*. When fullfilled the promise will return an acquisition token (*integer*) if the acquisition succeeded or `null` if the acquisition failed.
 
 **Examples**
 
@@ -126,15 +126,20 @@ if (token !== null){
 gameController.releaseRobot('green', token1);
 ```
 
-`canAcquireRobot(robotID)`
+> canAcquireRobot(robotID)
+
 Tells if a robot can be immediately acquired or if it was already previously acquired.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot (e.g. 'green')
+
 **Returns**
+
 `canBeAcquired`: *boolean*. The value is `true` if the robot can be immediately acquired, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = gameController.canBeAcquired('green');
 if (outcome){
@@ -144,26 +149,35 @@ if (outcome){
 }
 ```
 
-`releaseRobot(robotID, token)`
+> releaseRobot(robotID, token)
+
 Releases a robot previously acquired to ensure that can be used by other concurrent processes acquiring it.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot to release (e.g. 'green')
 `token` | *integer* | The acquisition token returned by the 
+
 **Returns**
+
 `outcome`: *boolean*. The value is `true` if the releasing process succeded, `false` otherwise.
 
 ### Handling game logic
 
-`async attendCustomerRequest(robotID)`
+> async attendCustomerRequest(robotID)
+
 Sends a command to the robot to attend the customer at the current location of the robot. This call will fail if the robot is not at a table seat and if there is not a customer seated at that location or if the customer did not ask for attention.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to interact with the customer. When this process is completed, the returned promise will be fulfilled returning a *boolean* value: `true` if the billing proces succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to interact with the customer. When this process is completed, the returned promise will be fulfilled returning a *boolean* value: `true` if the billing proces succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let request = await gameController.attendCustomerRequest('green');
 if (request !== false){
@@ -173,16 +187,21 @@ if (request !== false){
 }
 ```
 
-`async billCustomer(robotID, billTotal)`
+> async billCustomer(robotID, billTotal)
+
 Sends a command to the robot to bill the customer at the current location of the robot with a total amount. This call will fail if the robot is not at a table seat and if there is not a customer seated at that location or if the customer is still waiting for an ordered food.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
 `billTotal` | *float* | The amount of the bill
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to interact with the customer. When this process is completed with success, the returned promise will be fulfilled returning a *string* with the request of the customer. If the process fails, the returned promise will be fulfilled returning the *boolean* value `false`.
+
+`processPromise`: *Promise*. The robot will take some time to interact with the customer. When this process is completed with success, the returned promise will be fulfilled returning a *string* with the request of the customer. If the process fails, the returned promise will be fulfilled returning the *boolean* value `false`.
 
 **Examples**
+
 ```js
 let outcome = await gameController.billCustomer('green', 100);
 if (outcome !== false){
@@ -192,15 +211,20 @@ if (outcome !== false){
 }
 ```
 
-`async cleanSeat(robotID)`
+> async cleanSeat(robotID)
+
 Sends a command to the robot to clean the seat where the robot is currently located. This call will fail if the robot is not located at a table seat, if there is no plate to clean or if the customer is still eating their food.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to clean the seat. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to clean the seat. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.cleanSeat('green');
 if (outcome !== false){
@@ -210,16 +234,21 @@ if (outcome !== false){
 }
 ```
 
-`newOrder(customerName, foodName)`
+> newOrder(customerName, foodName)
+
 Makes a new order for a customer and set a food item in preparation at the kitchen.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `customerName` | *string* | The name of the customer on the order
 `foodName` | *string* | The food item to prepare
+
 **Returns**
+
 `outcome`: *boolean*. The value is `true` if the order succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = gameController.newOrder('Jon Bowl', 'pasta');
 if (outcome !== false){
@@ -229,15 +258,20 @@ if (outcome !== false){
 }
 ```
 
-`async pickUpCustomer(robotID)`
+> async pickUpCustomer(robotID)
+
 Sends a command to the robot to pick up a customer from the current location of the robot. This call will fail if the robot is not located at the reception, if there are no customers at the reception or if the robot is already picked up a customer.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.pickUpCustomer('green');
 if (outcome !== false){
@@ -247,15 +281,20 @@ if (outcome !== false){
 }
 ```
 
-`async seatCustomer(robotID)`
+> async seatCustomer(robotID)
+
 Sends a command to the robot to offer a customer a seat. This call will fail if the robot is not located at a free seat or if the robot did not pick up a customer.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.seatCustomer('green');
 if (outcome !== false){
@@ -265,15 +304,20 @@ if (outcome !== false){
 }
 ```
 
-`async serveFood(robotID)`
+> async serveFood(robotID)
+
 Sends a command to the robot to serve food at a table seat. This call will fail if the robot is not located at a table seat, if the robot did not grab food, if there is not a customer seated at the table seat or if the customer is not expecting food.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.serveFood('green');
 if (outcome !== false){
@@ -283,16 +327,21 @@ if (outcome !== false){
 }
 ```
 
-`async takeFood(robotID, foodName)`
+> async takeFood(robotID, foodName)
+
 Sends a command to the robot to take a food item from the kitchen. This call will fail if the robot is not located at the kitchen, if the robot already grabbed food or if the desired food item is not available at the kitchen.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
 `foodName` | *string* | The name of the food item to grab
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.takeFood('green', 'pasta');
 if (outcome !== false){
@@ -302,15 +351,20 @@ if (outcome !== false){
 }
 ```
 
-`async teleportRobotAtHome(robotID)`
+> async teleportRobotAtHome(robotID)
+
 Sends a command to the robot to teleport it at its home landmark.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.teleportRobotAtHome('green');
 if (outcome !== false){
@@ -320,16 +374,21 @@ if (outcome !== false){
 }
 ```
 
-`async teleportRobotToLandmark(robotID, landmarkID)`
+> async teleportRobotToLandmark(robotID, landmarkID)
+
 Sends a command to the robot to teleport it to desired landmark. The call will fail if the landmark is occupied by another robot.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
 `landmarkID` | *string* | The ID of destination landmark
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.teleportRobotToLandmark('green', 'reception');
 if (outcome !== false){
@@ -339,15 +398,20 @@ if (outcome !== false){
 }
 ```
 
-`async throwAwayFood(robotID)`
+> async throwAwayFood(robotID)
+
 Sends a command to the robot to throw away the grabbed food. The call will fail if the robot did not grab food.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
+
 **Returns**
-`processPromise`: *$$\text{\color{green}{Promise}}$$*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
+
+`processPromise`: *Promise*. The robot will take some time to execute the command. When this process is completed, the returned promise will be fulfilled returning a *boolean* with value `true` if the command succeeded, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = await gameController.throwAwayFood('green');
 if (outcome !== false){
@@ -359,15 +423,20 @@ if (outcome !== false){
 
 ### Check game status
 
-`canRobotGrabFood(robotID)`
+> canRobotGrabFood(robotID)
+
 Tells if a robot can grab food or if it has already grabbed food and it cannot grab anymore food.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot (e.g. 'green')
+
 **Returns**
+
 `canGrabFood`: *boolean*. The value is `true` if the robot can grab food, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = gameController.canRobotGrabFood('green');
 if (outcome){
@@ -377,16 +446,21 @@ if (outcome){
 }
 ```
 
-`canRobotTeleportToLandmark(robotID, landmarkID)`
+> canRobotTeleportToLandmark(robotID, landmarkID)
+
 Tells if a robot can teleport to a landmark. A robot may not be able to teleport to a landmark if the landmark is currently occupied by another robot or if the robot is trying to teleport to the home landmark of another robot.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot (e.g. 'green')
 `landmarkID` | *string* | The ID of the destination landmark
+
 **Returns**
+
 `canTeleport`: *boolean*. The value is `true` if the robot can teleport to the landmark or if already at the landmark, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = gameController.canRobotTeleportToLandmark('green', 'reception');
 if (outcome){
@@ -396,15 +470,20 @@ if (outcome){
 }
 ```
 
-`isRobotWalkingACustomer(robotID)`
+> isRobotWalkingACustomer(robotID)
+
 Tells if a robot has already picked up a customer.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot (e.g. 'green')
+
 **Returns**
+
 `isWalkingACustomer`: *boolean*. The value is `true` if the robot picked up a customer from the reception, `false` otherwise.
 
 **Examples**
+
 ```js
 let outcome = gameController.isRobotWalkingACustomer('green');
 if (outcome){
@@ -414,15 +493,20 @@ if (outcome){
 }
 ```
 
-`isSeatClean(landmarkID)`
+> isSeatClean(landmarkID)
+
 Tells if the seat is clean from food.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `landmarkID` | *string* | The ID of table seat
+
 **Returns**
+
 `isClean`: *boolean*. The value is `true` if there is no empty plate at the seat, `false` otherwise.
 
 **Examples**
+
 ```js
 let isClean = gameController.isSeatClean('table-1-1');
 if (isClean){
@@ -432,15 +516,20 @@ if (isClean){
 }
 ```
 
-`isSeatFree(landmarkID)`
+> isSeatFree(landmarkID)
+
 Tells if the seat is currently free.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `landmarkID` | *string* | The ID of table seat
+
 **Returns**
+
 `isFree`: *boolean*. The value is `true` if there is no customer seated at that seat, `false` otherwise.
 
 **Examples**
+
 ```js
 let isFree = gameController.isSeatFree('table-1-1');
 if (isFree){
@@ -452,156 +541,209 @@ if (isFree){
 
 ### Getters
 
-`getFoodPrice(foodName)`
+> getFoodPrice(foodName)
+
 Returns the price of a food item.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `foodName` | *string* | The name of the food item (e.g. 'toast')
+
 **Returns**
+
 `price`: *float*. The price of the food value.
 
 **Examples**
+
 ```js
 let price = gameController.getFoodPrice('pasta');
 console.log(`The pasta costs ${price} dollars`);
 ```
 
-`getFreeLandmarks()`
+> getFreeLandmarks()
+
 Returns an array with the list of landmarks currently unoccupied by robots.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 - |  | 
+
 **Returns**
+
 `freeLandmarks`: *string[]*. A list of free landmarks.
 
 **Examples**
+
 ```js
 let free = gameController.getFreeLandmarks();
 console.log(`There are no robots at these landmarks: ${free}`);
 ```
 
-`getLandmarkIDAsNaturalLanguage(landmarkID)`
+> getLandmarkIDAsNaturalLanguage(landmarkID)
+
 Returns the natural language string representing the desired landmark.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `landmarkID` | *string* | The ID of the desired landmark (e.g. 'table-1-1') 
+
 **Returns**
+
 `asNaturalLanguage`: *string*.
 
 **Examples**
+
 ```js
 let asNaturalLanguage = gameController.getLandmarkIDAsNaturalLanguage('table-3-2');
 console.log(`table-3-2 corresponds to the string ${asNaturalLanguage}`);
 ```
 
-`getLandmarksIds()`
+> getLandmarksIds()
+
 Returns an array with the list of all the landmarks in the game.
 |**parameter**|**type**|**description**|
 --- | --- | ---
 - |  | 
+
 **Returns**
+
 `landmarks`: *string[]*. A list of all the game landmarks.
 
 **Examples**
+
 ```js
 let landmarks = gameController.getLandmarksIds();
 console.log(`The game has these landmarks: ${landmarks}`);
 ```
 
-`getMenuList()`
+> getMenuList()
+
 Returns an array with the food items on the menu.
 |**parameter**|**type**|**description**|
 --- | --- | ---
 - |  | 
+
 **Returns**
+
 `foodItems`: *string[]*. A list of all the food items on the menu.
 
 **Examples**
+
 ```js
 let menu = gameController.getMenuList();
 console.log(`Menu of the restaurant: ${menu}`);
 ```
 
-`getNumberOfCustomers()`
+> getNumberOfCustomers()
+
 Returns the number of customers currently at the restaurant.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 - |  | 
+
 **Returns**
+
 `nCustomers`: *integer*.
 
 **Examples**
+
 ```js
 let n = gameController.getNumberOfCustomers();
 console.log(`There are ${n} customers at the restaurant`);
 ```
 
-`getRobotDistanceFromLandmark(robotID, landmarkID)`
+> getRobotDistanceFromLandmark(robotID, landmarkID)
+
 Returns the distance in pixels from the robot to the desired landmark.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot (e.g. 'green')
 `landmarkID` | *string* | The ID of the landmark
+
 **Returns**
+
 `distance`: *float*.
 
 **Examples**
+
 ```js
 let dist = gameController.getRobotDistanceFromLandmark('green', 'reception');
 console.log(`Green is located ${dist} pixels away from the reception`);
 ```
 
-`getRobotIds()`
+> getRobotIds()
+
 Returns an array with IDs of the robots.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 - |  | 
+
 **Returns**
+
 `robots`: *string[]*. A list of all robots at the restaurant.
 
 **Examples**
+
 ```js
 let robots = gameController.getRobotIds();
 console.log(`The restaurant uses these robots: ${robots}`);
 ```
 
-`localiseRobot(robotID)`
+> localiseRobot(robotID)
+
 Returns the current location of the robot.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot (e.g. 'green')
+
 **Returns**
+
 `landmarkID`: *string*. The location of the robot.
 
 **Examples**
+
 ```js
 let location = gameController.localiseRobot('green');
 console.log(`Green is currently at ${location}`);
 ```
 
-`locateCustomer(customerName)`
+> locateCustomer(customerName)
+
 Returns the current location of the customer. The call fails if the customer cannot be located (for example because they left the restaurant).
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `customerName` | *string* | The name of the customer
+
 **Returns**
+
 `landmarkID`: *string*. The location of the customer.
 
 **Examples**
+
 ```js
 let location = gameController.locateCustomer('Jon Bowl');
 console.log(`Jon Bowl is at ${location}`);
 ```
 
-`whichRobotIsAtLandmark(landmarkID)`
+> whichRobotIsAtLandmark(landmarkID)
+
 Returns the robot that is currently at a landmark or `null` if no robot is at the specified landmark.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `landmarkID` | *string* | The ID of the landmark
+
 **Returns**
+
 `robotID`: *string* or `null`. The robot currently at the landmark.
 
 **Examples**
+
 ```js
 let robot = gameController.whichRobotIsAtLandmark('reception');
 if (robot !== null){
@@ -613,31 +755,41 @@ if (robot !== null){
 
 ### Events manager
 
-`publish(topic, msg)`
+> publish(topic, msg)
+
 Publishes a message object on a topic.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `topic` | *string* | The name of the topic
 `msg` | *Object* | A message object with some properties
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.publish('a_topic', {property1: 'value1', property2: 'value2'});
 console.log(`Published a new message on topic a_topic`);
 ```
 
-`subscribe(topic, callback)`
+> subscribe(topic, callback)
+
 Subscribes to a topic.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `topic` | *string* | The name of the topic
 `callback` | *function* | A callback function executed when a new message is published on the subscribed topic. The callback function needs to receive as input the retrieved message.
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 function myTopicHandler(msg){
     console.log(`Received a new message on my_topic: ${msg.content}`);
@@ -648,15 +800,20 @@ gameController.publish('my_topic', {content: 'hello world!'});
 
 ### Voice commands
 
-`listen(callback)`
+> listen(callback)
+
 Listen to speech from the user's microphone.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `callback` | *function* | A function that needs to be executed when the speech recognition acquired the speech and converted it to a text transcription. The callback function needs to accept a parameter as input, that is the speech transcription
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 function repeat(transcription){
     console.log(`The user said: ${transcription}`);
@@ -666,15 +823,20 @@ gameController.listen(repeat);
 
 ### Debugging, logging and other utilities
 
-`debug.generateRandomRequest(isFoodRequest)`
+> debug.generateRandomRequest(isFoodRequest)
+
 Generates a random natural language request for food or for the bill.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `isFoodRequest` | *boolean* | Set it to `true` for generating a food request, set it to `false` for generating a bill request
+
 **Returns**
+
 `request`: *string*. A random natural languange request.
 
 **Examples**
+
 ```js
 let foodRequest = gameController.debug.generateRandomRequest(true);
 console.log(`Food request: ${foodRequest}`);
@@ -682,156 +844,211 @@ let billRequest = gameController.debug.generateRandomRequest(false);
 console.log(`Bill request: ${billRequest}`);
 ```
 
-`debug.generateSeatedCustomer(landmarkID)`
+> debug.generateSeatedCustomer(landmarkID)
+
 Generates a customer seated on the desired landmarkID. It fails if there is already a customer seated at that location or if the landmark is not a seat.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `landmarkID` | *string* | The ID of the table seat landmark
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.debug.generateSeatedCustomer('table-2-1');
 console.log('A new customer at table 2 seat 1!');
 ```
 
-`debug.generateWaitingCustomer(waitingTime)`
+> debug.generateWaitingCustomer(waitingTime)
+
 Generates a customer waiting at the reception.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `waitingTime` | *integer* | The customer will wait this amount of milliseconds before leaving the restaurant. If `waitingTime` is 0, the customer will wait forever.
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.debug.generateWaitingCustomer(5000);
 console.log('A new customer at the reception waiting for 5 seconds!');
 ```
 
-`debug.triggerCustomerRequest(customerName, request, waitForever)`
+> debug.triggerCustomerRequest(customerName, request, waitForever)
+
 Makes the customer to ask for attention.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `customerName` | *string* | The name of the customer
 `request` | *string* | The natural language request of the customer
 `waitForever` | *boolean* | If `true` the customer will wait forever for attention, if `false` the customer will wait for a limited amount of seconds before leaving.
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.debug.triggerCustomerRequest('Jon Bowl', 'I want the pasta, please', false);
 console.log('Jon Bowl is asking for attention');
 ```
 
-`debug.triggerRandomCustomerRequest(customerName, waitForever)`
+> debug.triggerRandomCustomerRequest(customerName, waitForever)
+
 Makes the customer to ask for attention by generating a request randomly.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `customerName` | *string* | The name of the customer
 `waitForever` | *boolean* | If `true` the customer will wait forever for attention, if `false` the customer will wait for a limited amount of seconds before leaving.
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.debug.triggerRandomCustomerRequest('Jon Bowl', false);
 console.log('Jon Bowl is asking for attention');
 ```
 
-`debug.triggerRandomCustomerRequest(customerName, waitForever)`
+> debug.triggerRandomCustomerRequest(customerName, waitForever)
+
 Makes the customer to ask for attention by generating a request randomly.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `customerName` | *string* | The name of the customer
 `waitForever` | *boolean* | If `true` the customer will wait forever for attention, if `false` the customer will wait for a limited amount of seconds before leaving.
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.debug.triggerRandomCustomerRequest('Jon Bowl', false);
 console.log('Jon Bowl is asking for attention');
 ```
 
-`log(logText)`
+> log(logText)
+
 Logs an information on the log panel.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `logText` | *string* | A log message
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.log('Hello world!');
 ```
 
-`logError(errorMessage)`
+> logError(errorMessage)
+
 Logs an error on the log panel.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `errorMessage` | *string* | A log error
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.logError('There was an error');
 ```
 
-`logEvent(eventMessage)`
+> logEvent(eventMessage)
+
 Logs a message about an event on the log panel.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `eventMessage` | *string* | A log message about an event
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.logEvent('An event happened');
 ```
 
-`logWarning(warningMessage)`
+> logWarning(warningMessage)
+
 Logs a warning on the log panel.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `warningMessage` | *string* | A log warning
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.logWarning('Attention! Something bad may happen');
 ```
 
-`async sleep(ms)`
+> async sleep(ms)
+
 Sleeps for an amount of milliseconds
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `ms` | *integer* | The amount of milliseconds to sleep
+
 **Returns**
-`sleepPromise`: *$$\text{\color{green}{Promise}}$$*. The methods immediately returns a promise that is fulfilled when the process slept the desired amount of milliseconds.
+
+`sleepPromise`: *Promise*. The methods immediately returns a promise that is fulfilled when the process slept the desired amount of milliseconds.
 
 **Examples**
+
 ```js
 console.log('Now');
 await gameController.sleep(3000);
 console.log('After 3 seconds');
 ```
 
-`verbose(verboseState)`
+> verbose(verboseState)
+
 Sets the verbose state. If `true` the debugging console will show the logs of the publisher/subscriber manager, if `false` these logs will not be displayed on the console. The default state is `false`.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `verboseState` | *boolean* | The verbose state
+
 **Returns**
+
 `none`
 
 **Examples**
+
 ```js
 gameController.verbose(false);
 gameController.publish('my_topic', {});
