@@ -564,10 +564,6 @@ console.log(`The pasta costs ${price} dollars`);
 
 Returns an array with the list of landmarks currently unoccupied by robots.
 
-|**parameter**|**type**|**description**|
---- | --- | ---
-- |  | 
-
 **Returns**
 
 `freeLandmarks`: *string[]*. A list of free landmarks.
@@ -601,9 +597,6 @@ console.log(`table-3-2 corresponds to the string ${asNaturalLanguage}`);
 > getLandmarksIds()
 
 Returns an array with the list of all the landmarks in the game.
-|**parameter**|**type**|**description**|
---- | --- | ---
-- |  | 
 
 **Returns**
 
@@ -619,9 +612,6 @@ console.log(`The game has these landmarks: ${landmarks}`);
 > getMenuList()
 
 Returns an array with the food items on the menu.
-|**parameter**|**type**|**description**|
---- | --- | ---
-- |  | 
 
 **Returns**
 
@@ -637,10 +627,6 @@ console.log(`Menu of the restaurant: ${menu}`);
 > getNumberOfCustomers()
 
 Returns the number of customers currently at the restaurant.
-
-|**parameter**|**type**|**description**|
---- | --- | ---
-- |  | 
 
 **Returns**
 
@@ -676,10 +662,6 @@ console.log(`Green is located ${dist} pixels away from the reception`);
 > getRobotIds()
 
 Returns an array with IDs of the robots.
-
-|**parameter**|**type**|**description**|
---- | --- | ---
-- |  | 
 
 **Returns**
 
