@@ -99,16 +99,21 @@ The game logic can be controlled by using the pre-declared global variable `game
 
 ### Handling concurrency
 
-`async acquireRobot(robotID, waitForToken)`
+```js async acquireRobot(robotID, waitForToken)```
+
 Acquires a robot to ensure that no other processes can acquire the robot until it is released.
+
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot to acquire (e.g. 'green')
 `waitForToken` | *boolean* | If `true` the returned $$\text{\color{green}{Promise}}$$ will be fulfilled only if the robot is not currently acquired or when all the other processes that acquired the robot releases it. If `false` the returned $$\text{\color{green}{Promise}}$$ will be fulfilled immediately, even if the robot is not available for acquisition. In this case, the returned token will have value `null`
+
 **Returns**
+
 `acquisitionPromise`: *$$\text{\color{green}{Promise}}$$*. When fullfilled the promise will return an acquisition token (*integer*) if the acquisition succeeded or `null` if the acquisition failed.
 
 **Examples**
+
 ```js
 let token1 = await gameController.acquireRobot('green', true);
 console.log('First process acquiring green!')
