@@ -122,7 +122,7 @@ if (token !== null){
 gameController.releaseRobot('green', token1);
 ```
 
-> canAcquireRobot(robotID)
+### canAcquireRobot(robotID)
 
 Tells if a robot can be immediately acquired or if it was already previously acquired.
 
@@ -145,7 +145,7 @@ if (outcome){
 }
 ```
 
-> releaseRobot(robotID, token)
+### releaseRobot(robotID, token)
 
 Releases a robot previously acquired to ensure that can be used by other concurrent processes acquiring it.
 
@@ -158,9 +158,9 @@ Releases a robot previously acquired to ensure that can be used by other concurr
 
 `outcome`: *boolean*. The value is `true` if the releasing process succeded, `false` otherwise.
 
-### Handling game logic
+## Handling game logic
 
-> async attendCustomerRequest(robotID)
+### async attendCustomerRequest(robotID)
 
 Sends a command to the robot to attend the customer at the current location of the robot. This call will fail if the robot is not at a table seat and if there is not a customer seated at that location or if the customer did not ask for attention.
 
@@ -183,7 +183,7 @@ if (request !== false){
 }
 ```
 
-> async billCustomer(robotID, billTotal)
+### async billCustomer(robotID, billTotal)
 
 Sends a command to the robot to bill the customer at the current location of the robot with a total amount. This call will fail if the robot is not at a table seat and if there is not a customer seated at that location or if the customer is still waiting for an ordered food.
 
@@ -207,7 +207,7 @@ if (outcome !== false){
 }
 ```
 
-> async cleanSeat(robotID)
+### async cleanSeat(robotID)
 
 Sends a command to the robot to clean the seat where the robot is currently located. This call will fail if the robot is not located at a table seat, if there is no plate to clean or if the customer is still eating their food.
 
@@ -230,7 +230,7 @@ if (outcome !== false){
 }
 ```
 
-> newOrder(customerName, foodName)
+### newOrder(customerName, foodName)
 
 Makes a new order for a customer and set a food item in preparation at the kitchen.
 
@@ -254,7 +254,7 @@ if (outcome !== false){
 }
 ```
 
-> async pickUpCustomer(robotID)
+### async pickUpCustomer(robotID)
 
 Sends a command to the robot to pick up a customer from the current location of the robot. This call will fail if the robot is not located at the reception, if there are no customers at the reception or if the robot is already picked up a customer.
 
@@ -277,7 +277,7 @@ if (outcome !== false){
 }
 ```
 
-> async seatCustomer(robotID)
+### async seatCustomer(robotID)
 
 Sends a command to the robot to offer a customer a seat. This call will fail if the robot is not located at a free seat or if the robot did not pick up a customer.
 
@@ -300,7 +300,7 @@ if (outcome !== false){
 }
 ```
 
-> async serveFood(robotID)
+### async serveFood(robotID)
 
 Sends a command to the robot to serve food at a table seat. This call will fail if the robot is not located at a table seat, if the robot did not grab food, if there is not a customer seated at the table seat or if the customer is not expecting food.
 
@@ -323,7 +323,7 @@ if (outcome !== false){
 }
 ```
 
-> async takeFood(robotID, foodName)
+### async takeFood(robotID, foodName)
 
 Sends a command to the robot to take a food item from the kitchen. This call will fail if the robot is not located at the kitchen, if the robot already grabbed food or if the desired food item is not available at the kitchen.
 
@@ -347,7 +347,7 @@ if (outcome !== false){
 }
 ```
 
-> async teleportRobotAtHome(robotID)
+### async teleportRobotAtHome(robotID)
 
 Sends a command to the robot to teleport it at its home landmark.
 
@@ -370,7 +370,7 @@ if (outcome !== false){
 }
 ```
 
-> async teleportRobotToLandmark(robotID, landmarkID)
+### async teleportRobotToLandmark(robotID, landmarkID)
 
 Sends a command to the robot to teleport it to desired landmark. The call will fail if the landmark is occupied by another robot.
 
@@ -394,7 +394,7 @@ if (outcome !== false){
 }
 ```
 
-> async throwAwayFood(robotID)
+### async throwAwayFood(robotID)
 
 Sends a command to the robot to throw away the grabbed food. The call will fail if the robot did not grab food.
 
@@ -417,9 +417,9 @@ if (outcome !== false){
 }
 ```
 
-### Check game status
+## Check game status
 
-> canRobotGrabFood(robotID)
+### canRobotGrabFood(robotID)
 
 Tells if a robot can grab food or if it has already grabbed food and it cannot grab anymore food.
 
@@ -442,7 +442,7 @@ if (outcome){
 }
 ```
 
-> canRobotTeleportToLandmark(robotID, landmarkID)
+### canRobotTeleportToLandmark(robotID, landmarkID)
 
 Tells if a robot can teleport to a landmark. A robot may not be able to teleport to a landmark if the landmark is currently occupied by another robot or if the robot is trying to teleport to the home landmark of another robot.
 
@@ -466,7 +466,7 @@ if (outcome){
 }
 ```
 
-> isRobotWalkingACustomer(robotID)
+### isRobotWalkingACustomer(robotID)
 
 Tells if a robot has already picked up a customer.
 
@@ -489,7 +489,7 @@ if (outcome){
 }
 ```
 
-> isSeatClean(landmarkID)
+### isSeatClean(landmarkID)
 
 Tells if the seat is clean from food.
 
@@ -512,7 +512,7 @@ if (isClean){
 }
 ```
 
-> isSeatFree(landmarkID)
+### isSeatFree(landmarkID)
 
 Tells if the seat is currently free.
 
@@ -535,9 +535,9 @@ if (isFree){
 }
 ```
 
-### Getters
+## Getters
 
-> getFoodPrice(foodName)
+### getFoodPrice(foodName)
 
 Returns the price of a food item.
 
@@ -556,7 +556,7 @@ let price = gameController.getFoodPrice('pasta');
 console.log(`The pasta costs ${price} dollars`);
 ```
 
-> getFreeLandmarks()
+### getFreeLandmarks()
 
 Returns an array with the list of landmarks currently unoccupied by robots.
 
@@ -571,7 +571,7 @@ let free = gameController.getFreeLandmarks();
 console.log(`There are no robots at these landmarks: ${free}`);
 ```
 
-> getLandmarkIDAsNaturalLanguage(landmarkID)
+### getLandmarkIDAsNaturalLanguage(landmarkID)
 
 Returns the natural language string representing the desired landmark.
 
@@ -590,7 +590,7 @@ let asNaturalLanguage = gameController.getLandmarkIDAsNaturalLanguage('table-3-2
 console.log(`table-3-2 corresponds to the string ${asNaturalLanguage}`);
 ```
 
-> getLandmarksIds()
+### getLandmarksIds()
 
 Returns an array with the list of all the landmarks in the game.
 
@@ -605,7 +605,7 @@ let landmarks = gameController.getLandmarksIds();
 console.log(`The game has these landmarks: ${landmarks}`);
 ```
 
-> getMenuList()
+### getMenuList()
 
 Returns an array with the food items on the menu.
 
@@ -620,7 +620,7 @@ let menu = gameController.getMenuList();
 console.log(`Menu of the restaurant: ${menu}`);
 ```
 
-> getNumberOfCustomers()
+### getNumberOfCustomers()
 
 Returns the number of customers currently at the restaurant.
 
@@ -635,7 +635,7 @@ let n = gameController.getNumberOfCustomers();
 console.log(`There are ${n} customers at the restaurant`);
 ```
 
-> getRobotDistanceFromLandmark(robotID, landmarkID)
+### getRobotDistanceFromLandmark(robotID, landmarkID)
 
 Returns the distance in pixels from the robot to the desired landmark.
 
@@ -655,7 +655,7 @@ let dist = gameController.getRobotDistanceFromLandmark('green', 'reception');
 console.log(`Green is located ${dist} pixels away from the reception`);
 ```
 
-> getRobotIds()
+### getRobotIds()
 
 Returns an array with IDs of the robots.
 
@@ -670,7 +670,7 @@ let robots = gameController.getRobotIds();
 console.log(`The restaurant uses these robots: ${robots}`);
 ```
 
-> localiseRobot(robotID)
+### localiseRobot(robotID)
 
 Returns the current location of the robot.
 
@@ -689,7 +689,7 @@ let location = gameController.localiseRobot('green');
 console.log(`Green is currently at ${location}`);
 ```
 
-> locateCustomer(customerName)
+### locateCustomer(customerName)
 
 Returns the current location of the customer. The call fails if the customer cannot be located (for example because they left the restaurant).
 
@@ -708,7 +708,7 @@ let location = gameController.locateCustomer('Jon Bowl');
 console.log(`Jon Bowl is at ${location}`);
 ```
 
-> whichRobotIsAtLandmark(landmarkID)
+### whichRobotIsAtLandmark(landmarkID)
 
 Returns the robot that is currently at a landmark or `null` if no robot is at the specified landmark.
 
@@ -731,9 +731,9 @@ if (robot !== null){
 }
 ```
 
-### Events manager
+## Events manager
 
-> publish(topic, msg)
+### publish(topic, msg)
 
 Publishes a message object on a topic.
 
@@ -753,7 +753,7 @@ gameController.publish('a_topic', {property1: 'value1', property2: 'value2'});
 console.log(`Published a new message on topic a_topic`);
 ```
 
-> subscribe(topic, callback)
+### subscribe(topic, callback)
 
 Subscribes to a topic.
 
@@ -776,9 +776,9 @@ gameController.subscribe('my_topic', myTopicHandler);
 gameController.publish('my_topic', {content: 'hello world!'});
 ```
 
-### Voice commands
+## Voice commands
 
-> listen(callback)
+### listen(callback)
 
 Listen to speech from the user's microphone.
 
@@ -799,9 +799,9 @@ function repeat(transcription){
 gameController.listen(repeat);
 ```
 
-### Debugging, logging and other utilities
+## Debugging, logging and other utilities
 
-> debug.generateRandomRequest(isFoodRequest)
+### debug.generateRandomRequest(isFoodRequest)
 
 Generates a random natural language request for food or for the bill.
 
@@ -822,7 +822,7 @@ let billRequest = gameController.debug.generateRandomRequest(false);
 console.log(`Bill request: ${billRequest}`);
 ```
 
-> debug.generateSeatedCustomer(landmarkID)
+### debug.generateSeatedCustomer(landmarkID)
 
 Generates a customer seated on the desired landmarkID. It fails if there is already a customer seated at that location or if the landmark is not a seat.
 
@@ -841,7 +841,7 @@ gameController.debug.generateSeatedCustomer('table-2-1');
 console.log('A new customer at table 2 seat 1!');
 ```
 
-> debug.generateWaitingCustomer(waitingTime)
+### debug.generateWaitingCustomer(waitingTime)
 
 Generates a customer waiting at the reception.
 
@@ -860,7 +860,7 @@ gameController.debug.generateWaitingCustomer(5000);
 console.log('A new customer at the reception waiting for 5 seconds!');
 ```
 
-> debug.triggerCustomerRequest(customerName, request, waitForever)
+### debug.triggerCustomerRequest(customerName, request, waitForever)
 
 Makes the customer to ask for attention.
 
@@ -881,7 +881,7 @@ gameController.debug.triggerCustomerRequest('Jon Bowl', 'I want the pasta, pleas
 console.log('Jon Bowl is asking for attention');
 ```
 
-> debug.triggerRandomCustomerRequest(customerName, waitForever)
+### debug.triggerRandomCustomerRequest(customerName, waitForever)
 
 Makes the customer to ask for attention by generating a request randomly.
 
@@ -901,7 +901,7 @@ gameController.debug.triggerRandomCustomerRequest('Jon Bowl', false);
 console.log('Jon Bowl is asking for attention');
 ```
 
-> debug.triggerRandomCustomerRequest(customerName, waitForever)
+### debug.triggerRandomCustomerRequest(customerName, waitForever)
 
 Makes the customer to ask for attention by generating a request randomly.
 
@@ -921,7 +921,7 @@ gameController.debug.triggerRandomCustomerRequest('Jon Bowl', false);
 console.log('Jon Bowl is asking for attention');
 ```
 
-> log(logText)
+### log(logText)
 
 Logs an information on the log panel.
 
@@ -939,7 +939,7 @@ Logs an information on the log panel.
 gameController.log('Hello world!');
 ```
 
-> logError(errorMessage)
+### logError(errorMessage)
 
 Logs an error on the log panel.
 
@@ -957,7 +957,7 @@ Logs an error on the log panel.
 gameController.logError('There was an error');
 ```
 
-> logEvent(eventMessage)
+### logEvent(eventMessage)
 
 Logs a message about an event on the log panel.
 
@@ -975,7 +975,7 @@ Logs a message about an event on the log panel.
 gameController.logEvent('An event happened');
 ```
 
-> logWarning(warningMessage)
+### logWarning(warningMessage)
 
 Logs a warning on the log panel.
 
@@ -993,7 +993,7 @@ Logs a warning on the log panel.
 gameController.logWarning('Attention! Something bad may happen');
 ```
 
-> async sleep(ms)
+### async sleep(ms)
 
 Sleeps for an amount of milliseconds
 
@@ -1013,7 +1013,7 @@ await gameController.sleep(3000);
 console.log('After 3 seconds');
 ```
 
-> verbose(verboseState)
+### verbose(verboseState)
 
 Sets the verbose state. If `true` the debugging console will show the logs of the publisher/subscriber manager, if `false` these logs will not be displayed on the console. The default state is `false`.
 
