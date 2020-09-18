@@ -1,9 +1,5 @@
 # Assignment 4
 
-This document is still in preparation (it is missing the specifications of the methods in gameController that you can use to solve the game).
-
-# Introduction 
-
 In this assignment, you will write code for robotic waiters in a restaurant game.
 Your robotic waiters will need to be able to understand natural language commands to move around the restaurant and to correctly create orders for your customers. Of course, the robots will first need to welcome new customers coming into the restaurant, find them a seat, and serve them food before they get annoyed from waiting too long and leave the restaurant without paying the bill!
 
