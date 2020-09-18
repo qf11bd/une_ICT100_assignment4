@@ -93,9 +93,9 @@ You can find the documentation about the methods available to control the game b
 
 The game logic can be controlled by using the pre-declared global variable `gameController`. This variable is an instance of an object with a set of methods that can be used as listed below. The methods are ordered by theme.
 
-### Handling concurrency
+## Handling concurrency
 
-> async acquireRobot(robotID, waitForToken)
+### async acquireRobot(robotID, waitForToken)
 
 Acquires a robot to ensure that no other processes can acquire the robot until it is released.
 
