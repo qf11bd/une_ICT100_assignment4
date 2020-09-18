@@ -880,6 +880,7 @@ function GameController(){
     });
     
     async function runTask1(seed){
+        gameController.verbose(true);
         disableCommandButtons(true);
         unregisterSubscribers();
         cleanLogs();
@@ -910,6 +911,12 @@ function GameController(){
             };
             _manager.logEvent(`Generated new random command: ${curTest.command}`);
             let promise = new Promise((resolve) => {
+                let timeout = setTimeout(() => {
+                    _manager.logError('The message for the topic new_command was not published within 4 seconds. Timeout.');
+                    _manager.unsubscribe(mySub);
+                    _manager.publish('command_executed', {});
+                    resolve();
+                }, 4000);
                 let mySub = _manager.subscribe('new_command', (msg) => {
                     let targetRobot, targetLandmark;
                     try{
@@ -924,15 +931,11 @@ function GameController(){
                         _manager.logError(err.stack);
                     } finally {
                         _manager.unsubscribe(mySub);
+                        clearTimeout(timeout);
                         resolve();
                     }
                 });
-                setTimeout(() => {
-                    _manager.logError('The message for the topic new_command was not published within 4 seconds. Timeout.');
-                    _manager.unsubscribe(mySub);
-                    _manager.publish('command_executed', {});
-                    resolve();
-                }, 4000);
+                
             });
             let promiseWaitCommand = new Promise((resolve) => {
                 let mySub = _manager.subscribe('command_executed', (msg) => {
@@ -1387,37 +1390,37 @@ function GameController(){
                 switch (simulationTask){
                     case 'task1':
                         if (seedTask === null){
-                            seedTask = Date.now();
+                            seedTask = Date.now()+'';
                         }
                         await runTask1(seedTask);
                         break;
                     case 'task2':
                         if (seedTask === null){
-                            seedTask = Date.now();
+                            seedTask = Date.now()+'';
                         }
                         await runTask2(seedTask);
                         break;
                     case 'task3':
                         if (seedTask === null){
-                            seedTask = Date.now();;
+                            seedTask = Date.now()+'';
                         }
                         await runTask3(seedTask);
                         break;
                     case 'task4':
                         if (seedTask === null){
-                            seedTask = Date.now();
+                            seedTask = Date.now()+'';
                         }
                         await runTask4(seedTask);
                         break;
                     case 'task5':
                         if (seedTask === null){
-                            seedTask = Date.now();
+                            seedTask = Date.now()+'';
                         }
                         await runTask5(seedTask);
                         break;
                     case 'task6':
                         if (seedTask === null){
-                            seedTask = Date.now();
+                            seedTask = Date.now()+'';
                         }
                         await runTask6(seedTask);
                         break;
