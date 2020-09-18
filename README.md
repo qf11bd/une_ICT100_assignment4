@@ -764,7 +764,7 @@ Subscribes to a topic.
 
 **Returns**
 
-`none`
+`subID`: *integer*. The subscriber ID of the generated subscriber.
 
 **Examples**
 
@@ -774,6 +774,32 @@ function myTopicHandler(msg){
 }
 gameController.subscribe('my_topic', myTopicHandler);
 gameController.publish('my_topic', {content: 'hello world!'});
+```
+
+### unsubscribe(subID)
+
+Unsubscribes a subscriber from a topic.
+
+|**parameter**|**type**|**description**|
+--- | --- | ---
+`subID` | *integer* | The ID of the subscriber we want to unsubscribe from a topic
+
+**Returns**
+
+`none`
+
+**Examples**
+
+```js
+function myTopicHandler(msg){
+    console.log(`Received a new message on my_topic: ${msg.content}`);
+}
+let sub1 = gameController.subscribe('my_topic', myTopicHandler);
+gameController.publish('my_topic', {content: 'hello world!'});
+//We will see something logged on the console
+gameController.unsubscribe(sub1);
+gameController.publish('my_topic', {content: 'hello again!'});
+//This time we will not see anything logged on the console
 ```
 
 ## Voice commands
