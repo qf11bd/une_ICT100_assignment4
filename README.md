@@ -51,7 +51,7 @@ The repository with the application includes a directory called *solution*. In t
 
 To prepare the files for submission:
 
-1. Place the .js solution files (common.js, and solution-task-1.js to solution-task-6.js) into a directory called solution<your student ID> (so if your student ID is 12345, the directory should be named solution12345);
+1. Place the .js solution files (common.js, and solution-task-1.js to solution-task-6.js) into a directory called solution&lt;your student ID&gt; (so if your student ID is 12345, the directory should be named solution12345);
 2. Compress the directory into a zip file;
 3. Submit the zip file on Moodle.
 
