@@ -137,7 +137,7 @@ Tells if a robot can be immediately acquired or if it was already previously acq
 **Examples**
 
 ```js
-let outcome = gameController.canBeAcquired('green');
+let outcome = gameController.canAcquireRobot('green');
 if (outcome){
     console.log('It is possible to acquire Green');
 } else {
