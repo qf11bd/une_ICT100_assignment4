@@ -158,6 +158,22 @@ Releases a robot previously acquired to ensure that can be used by other concurr
 
 `outcome`: *boolean*. The value is `true` if the releasing process succeded, `false` otherwise.
 
+**Examples**
+
+```js
+let token;
+try{
+  token = await gameController.acquireRobot('green', true);
+  // if we are here we have exclusive control of green
+  // do something ....
+} catch(err){
+  console.log('Whoops: ' + err.stack);
+} finally {
+  // always release the acquired token!
+  gameController.releaseRobot('green', token);
+}
+```
+
 ## Handling game logic
 
 ### async attendCustomerRequest(robotID)
