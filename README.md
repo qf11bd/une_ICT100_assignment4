@@ -51,7 +51,7 @@ The repository with the application includes a directory called *solution*. In t
 
 To prepare the files for submission:
 
-1. Place the .js solution files (common.js, and solution-task-1.js to solution-task-6.js) into a directory called solution<your student ID> (so if your student ID is 12345, the directory should be named solution12345);
+1. Place the .js solution files (common.js, and solution-task-1.js to solution-task-6.js) into a directory called solution&lt;your student ID&gt; (so if your student ID is 12345, the directory should be named solution12345);
 2. Compress the directory into a zip file;
 3. Submit the zip file on Moodle.
 
@@ -137,7 +137,7 @@ Tells if a robot can be immediately acquired or if it was already previously acq
 **Examples**
 
 ```js
-let outcome = gameController.canBeAcquired('green');
+let outcome = gameController.canAcquireRobot('green');
 if (outcome){
     console.log('It is possible to acquire Green');
 } else {
@@ -157,6 +157,22 @@ Releases a robot previously acquired to ensure that can be used by other concurr
 **Returns**
 
 `outcome`: *boolean*. The value is `true` if the releasing process succeded, `false` otherwise.
+
+**Examples**
+
+```js
+let token;
+try{
+  token = await gameController.acquireRobot('green', true);
+  // if we are here we have exclusive control of green
+  // do something ....
+} catch(err){
+  console.log('Whoops: ' + err.stack);
+} finally {
+  // always release the acquired token!
+  gameController.releaseRobot('green', token);
+}
+```
 
 ## Handling game logic
 
@@ -655,7 +671,7 @@ let dist = gameController.getRobotDistanceFromLandmark('green', 'reception');
 console.log(`Green is located ${dist} pixels away from the reception`);
 ```
 
-### getRobotIds()
+### getRobotsIds()
 
 Returns an array with IDs of the robots.
 
@@ -666,7 +682,7 @@ Returns an array with IDs of the robots.
 **Examples**
 
 ```js
-let robots = gameController.getRobotIds();
+let robots = gameController.getRobotsIds();
 console.log(`The restaurant uses these robots: ${robots}`);
 ```
 
