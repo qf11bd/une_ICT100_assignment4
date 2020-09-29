@@ -422,7 +422,7 @@ function GameController(){
             if (!(outcome instanceof Error)){
                 let [request, customer] = outcome;
                 _manager.log(`${robotID} successfully collected a request from ${customer.name}: ${request}`);
-                _manager.publish('customer_attended', {customerName: customer.name});
+                _manager.publish('customer_attended', {robotID: robotID, customerName: customer.name});
                 return request;
             } else {
                 _manager.logError(`${robotID} cannot attend customer's request: ${outcome.stack}`);
@@ -1200,7 +1200,7 @@ function GameController(){
         let subHandler = _manager.subscribe(
             topicHandler,
             (msg) => {
-                marker.recordScore(1, `${msg.robotID} successfully handled the customer's request`, true);
+                marker.recordScore(1, `${msg.customerName}'s request successfully handled`, true);
                 _manager.unsubscribe(subHandler);
             }
         );
