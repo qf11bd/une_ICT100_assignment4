@@ -671,7 +671,7 @@ let dist = gameController.getRobotDistanceFromLandmark('green', 'reception');
 console.log(`Green is located ${dist} pixels away from the reception`);
 ```
 
-### getRobotIds()
+### getRobotsIds()
 
 Returns an array with IDs of the robots.
 
@@ -682,7 +682,7 @@ Returns an array with IDs of the robots.
 **Examples**
 
 ```js
-let robots = gameController.getRobotIds();
+let robots = gameController.getRobotsIds();
 console.log(`The restaurant uses these robots: ${robots}`);
 ```
 
