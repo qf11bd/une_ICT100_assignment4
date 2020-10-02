@@ -186,7 +186,7 @@ Sends a command to the robot to attend the customer at the current location of t
 
 **Returns**
 
-`processPromise`: *Promise*. The robot will take some time to interact with the customer. When this process is completed, the returned promise will be fulfilled returning a *boolean* value: `true` if the billing proces succeeded, `false` otherwise.
+`processPromise`: *Promise*. The robot will take some time to interact with the customer. When this process is completed with success, the returned promise will be fulfilled returning a *string* with the request of the customer. If the process fails, the returned promise will be fulfilled returning the *boolean* value `false`.
 
 **Examples**
 
@@ -210,7 +210,7 @@ Sends a command to the robot to bill the customer at the current location of the
 
 **Returns**
 
-`processPromise`: *Promise*. The robot will take some time to interact with the customer. When this process is completed with success, the returned promise will be fulfilled returning a *string* with the request of the customer. If the process fails, the returned promise will be fulfilled returning the *boolean* value `false`.
+`processPromise`: *Promise*. The robot will take some time to interact with the customer. When this process is completed, the returned promise will be fulfilled returning a *string* value: `true` if the billing proces succeeded, `false` otherwise.
 
 **Examples**
 
