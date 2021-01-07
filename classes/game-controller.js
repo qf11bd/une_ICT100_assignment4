@@ -1304,7 +1304,7 @@ function GameController(){
         Math.seedrandom(seed);
         setupGameSubscribers();
         let maxMark = 3;
-        let nCustomers = rnd(7, 9);
+        let nCustomers = rnd(5, 7);
         _utCustomersNames.sort(() => Math.random() - 0.5);
         let customersLogic = {};
         let nAvailableFoods = Object.keys(_restaurant.menu).length;
@@ -1313,7 +1313,7 @@ function GameController(){
             customersLogic[_utCustomersNames[i]] = {
                 requests: []
             };
-            let nOrders = rnd(1, 3);
+            let nOrders = rnd(2, 3);
             for (let j = 0; j < nOrders; j++){
                 let randomFoodIdx = rnd(0, nAvailableFoods - 1);
                 let randomFood = Object.values(_restaurant.menu)[randomFoodIdx];
