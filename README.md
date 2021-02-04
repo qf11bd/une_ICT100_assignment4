@@ -47,6 +47,8 @@ However, to ensure that all assignments are scored against the same simulated co
 
 To control the game and produce a solution you can only use the pre-declared global variable *gameController*. Controlling the game by means of other variables is forbidden and it will lead to penalties that, in some cases (e.g. illegal score yielding), can lead to 0 marks for this assignment. For example, you cannot move the robots around by using their HTML elements to draw them somewhere else. Similarly, you cannot publish messages to topics used by the game logic with the only purpose of yielding free points. However, you can create additional variables or data structures needed to keep track of the information generated during the game and to manage the logic flow of the application.
 
+**Note:** Using the method `getElementById` to access html button and textbox elements that you need to solve the tasks of the assignment (e.g. in Task 1) **is totally fine**.
+
 The repository with the application includes a directory called *solution*. In this directory are seven files where you will need to write the code solving each task and the overall game. Some of them already include a function. In case there is a function, you will need to produce the code for this functions (without changing the name of the function and its arguments). You can use the file common.js to place shared variables, data structures and functions that you may want to use in the other solution files. You will only need to submit the files contained in the directory 'solution'. Any code written outside these files will not be marked.
 
 To prepare the files for submission:
@@ -63,33 +65,21 @@ The code for the application is available on Github at this URL:
 
 To run the application you have three options:
 
-1. Since this application do not require a live server, you can simply download the zip with the application, extract the file on your PC, and open the index.html file in your browser (only Mozilla Firefox or Chrome are fully supported);
-2. You can use codesandbox.io as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public));
-3. You can use VSC as explained in the video discussing how to setup the working environment for the chatbots workshops ([video for the setup](https://echo360.org.au/media/c7315e50-02db-45ec-953f-5cdad6ead615/public)).
+1. Since this application do not require a live server, you can simply download the zip with the application, extract the file on your PC, and open the index.html file in your browser (the code was tested on Mozilla Firefox and Chrome);
+2. You can use codesandbox.io as an on-line working environment (but remember to save a local copy of the code before closing the browser!);
+3. You can use Visual Studio Code and the live server extension.
+
+For options 2 and 3 please refer to the video provided on Moodle presenting how to setup the environment for the assignment.
 
 # Bugs
 
-This is the first year that we offer this subject and this assignment was never tested before. We checked the code for bugs, but it can still be possible that the code still contains some.
+We checked the code for bugs, but the code may still contains some.
 
-If you believe that the code may have a bug, take a screenshot of the error and provide a description of what happened. Then send this information via e-mail to Jonathan (jvitale@une.edu.au).
-
-# Help
-
-If you get stuck, first take a big breath in and relax. You are here to learn and we are here to help you learning. You can contact us on the Slack channel, post on the forum or send a private e-mail. Pay attention to not share your code. Exchanging ideas about possible solutions with the other students is fine and encouraged (without spoiling too much!).
-
-A general suggestion is to always try to deal with one small problem at a time. If the problem still looks too big, you can probably divide it in further subproblems. Also, do not immediately dive into the code. First try to mentally solve the problem by identifying the necessary steps, then think how you can write those steps as code.
-
-Remember, to climb a mountain you need to take many small steps and the journey will feel hard on your body but at the end you will be able to appreciate a wonderful view and in the future you will be trained enough to climb higher mountains.
-
-# Additional resources
-
-You can find more information about the assignment (including a showing-through of the application and some suggestions) on this video:
-
-In preparation
-
-You can find the documentation about the methods available to control the game below.
+If you believe that the code may have a bug, take a screenshot of the error and provide a description of what happened. Then send this information via e-mail to the teaching team.
 
 # Documentation of gameController
+
+In this section are listed all the methods available to control the game and solve the assignment. **At the end of every method presented below you will find a simple code giving an example of how to use the method.**
 
 The game logic can be controlled by using the pre-declared global variable `gameController`. This variable is an instance of an object with a set of methods that can be used as listed below. The methods are ordered by theme.
 
