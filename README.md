@@ -383,7 +383,7 @@ Sends a command to the robot to teleport it to desired landmark. The call will f
 |**parameter**|**type**|**description**|
 --- | --- | ---
 `robotID` | *string* | The ID of the robot performing the command (e.g. 'green')
-`landmarkID` | *string* | The ID of destination landmark
+`landmarkID` | *string* | The ID of destination landmark (e.g. 'reception' or 'table-1-1', see the method `getLandmarksIds()` to get a list of all the landmark IDs in the game)
 
 **Returns**
 
