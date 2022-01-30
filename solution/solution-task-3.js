@@ -16,7 +16,7 @@ async function welcomeAndSeatCustomer(){
         try{
             token = await gameController.acquireRobot('green', true);
             safeTeleportTo('green', 'reception')
-            await gameController.sleep(5000)
+            await gameController.sleep(7000)
             await gameController.pickUpCustomer('green')
 
         } catch(err){
@@ -24,20 +24,21 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            do {
-                for (let i = 1; i < 3; i++) {
-                    for (let j = 1; j < 3; j ++) {
-                        if (gameController.isSeatFree('table-' + i + '-' + j)) {
-                            freeSeat = 'table-' + i + '-' + j
-                            isFree = true
-                            break
-                        }
+            for (let i = 1; i < 3; i++) {
+                for (let j = 1; j < 4; j ++) {
+                    if (gameController.isSeatFree('table-' + i + '-' + j)) {
+                        freeSeat = 'table-' + i + '-' + j
+                        console.log(freeSeat)
+                        isFree = true
+                        break
                     }
                 }
-            } while (isFree == false)
+            }
+            await gameController.sleep(10000)
             safeTeleportTo('green', freeSeat)
-            await gameController.sleep(5000)
+            await gameController.sleep(10000)
             gameController.seatCustomer('green')
+            await gameController.sleep(2000)
             gameController.releaseRobot('green', token);
         }
     } else if (gameController.canAcquireRobot('yellow')) {
