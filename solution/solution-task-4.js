@@ -14,7 +14,27 @@ or false otherwise.
 */
 
 async function attendCustomerRequest(customerLocation, customerName){
-    // You can remove/edit these lines of code
     gameController.log(`Calling attendCustomerRequest('${customerLocation}', '${customerName}')`);
+    if (gameController.canAcquireRobot('green')) {
+        safeTeleportTo('green', customerLocation)
+        await gameController.sleep(10000);
+        let order = await gameController.attendCustomerRequest('green')
+        let orderArray = order.split(" ")
+        if (orderArray.includes('bill' || 'total')) {
+            gameController.logEvent('ITS A BILL')
+        } else {
+            gameController.logEvent('ITS NOT A BILL')
+        }
+        console.log(orderArray)
+        console.log(gameController.getMenuList())
+
+    } else if (gameController.canAcquireRobot('yellow')) {
+
+    } else if (gameController.canAcquireRobot('purple')) {
+
+    } else {
+        await gameController.sleep(10000);
+        attendCustomerRequest(customerLocation, customerName)
+    }
     await gameController.sleep(5000);
 }
