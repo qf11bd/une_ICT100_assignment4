@@ -23,17 +23,38 @@ async function safeTeleportTo(robotID, landmarkID){
     if (gameController.canRobotTeleportToLandmark(robotID, landmarkID)) {
         gameController.teleportRobotToLandmark(robotID, landmarkID)
         gameController.releaseRobot(robotID, token)
+
     } else {
         let occupiedID = gameController.whichRobotIsAtLandmark(landmarkID)
         if (gameController.canAcquireRobot(occupiedID)) {
             gameController.logEvent('Can acquire blocking bot')
             let token1 = await gameController.acquireRobot(occupiedID, true)
-            gameController.teleportRobotAtHome(occupiedID)
+            await gameController.teleportRobotAtHome(occupiedID)
             gameController.releaseRobot(occupiedID, token1)
-            gameController.teleportRobotToLandmark(robotID, landmarkID)
+            await gameController.teleportRobotToLandmark(robotID, landmarkID)
             gameController.releaseRobot(robotID, token)
+
         } else {
-            gameController.logEvent('Couldnt acquire blocking bot')
+            await gameController.sleep(10000);
+            let token2 = await gameController.acquireRobot(occupiedID, false)
+            await gameController.teleportRobotAtHome(occupiedID)
+            gameController.releaseRobot(occupiedID, token2)
+            await gameController.teleportRobotToLandmark(robotID, landmarkID)
+            gameController.releaseRobot(robotID, token)
+            // break
+            // let i = 0
+            // while (i < 10) {
+            //     if (gameController.canAcquireRobot(occupiedID)) {
+            //         let token1 = await gameController.acquireRobot(occupiedID, false)
+            //         await gameController.teleportRobotAtHome(occupiedID)
+            //         gameController.releaseRobot(occupiedID, token1)
+            //         await gameController.teleportRobotToLandmark(robotID, landmarkID)
+            //         gameController.releaseRobot(robotID, token)
+            //         break
+            //     } else {
+
+            //     }
+            // }
         }
     }
     
