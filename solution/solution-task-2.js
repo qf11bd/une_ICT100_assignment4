@@ -41,20 +41,6 @@ async function safeTeleportTo(robotID, landmarkID){
             gameController.releaseRobot(occupiedID, token2)
             await gameController.teleportRobotToLandmark(robotID, landmarkID)
             gameController.releaseRobot(robotID, token)
-            // break
-            // let i = 0
-            // while (i < 10) {
-            //     if (gameController.canAcquireRobot(occupiedID)) {
-            //         let token1 = await gameController.acquireRobot(occupiedID, false)
-            //         await gameController.teleportRobotAtHome(occupiedID)
-            //         gameController.releaseRobot(occupiedID, token1)
-            //         await gameController.teleportRobotToLandmark(robotID, landmarkID)
-            //         gameController.releaseRobot(robotID, token)
-            //         break
-            //     } else {
-
-            //     }
-            // }
         }
     }
     
