@@ -28,16 +28,45 @@ function readInputText(clearInput) {
     return textCommand
 }
 
-// Initialise constant for page enter button
+// Initialise constant for page enter button, define function for triggering event when 'enter' button pressed
+// Convert string to an array, and remove conjoining words + verbs
+// If array length is 2, landmark is not a table - publish 'new_command' as a single variable landmark
+// If array length is greater than 2, convert phonetic numbers to integers to be parsed by publish as a joined table number
+
 const enterButton = document.getElementById('button-text-command')
 
-
-
-
-
-gameController.publish('new_command', {
-    robotID: 'value1',
-    landmarkID: 'value2'
-})
-
-gameController.subscribe('new_command')
+enterButton.addEventListener(
+    'click',
+    function(){
+        let text = readInputText(true)
+        let textArray = text.split(" ")
+        textArray = textArray.filter(v => v !== 'teleport')
+        textArray = textArray.filter(v => v !== 'go')
+        textArray = textArray.filter(v => v !== 'to')
+        textArray = textArray.filter(v => v !== 'move')
+        textArray = textArray.filter(v => v !== 'seat')
+        // console.log(textArray)
+        if (textArray.length == 2) {
+            gameController.publish('new_command', {robotID: textArray[0], landmarkID: textArray[1]})
+        } else {
+            if (textArray[2] == 'one') {
+                textArray[2] = 1
+            } else if (textArray[2] == 'two') {
+                textArray[2] = 2
+            } else if (textArray[2] == 'three') {
+                textArray[2] = 3
+            }
+            if (textArray[3] == 'one') {
+                textArray[3] = 1
+            } else if (textArray[3] == 'two') {
+                textArray[3] = 2
+            } else if (textArray[3] == 'three') {
+                textArray[3] = 3
+            } else if (textArray[3] == 'four') {
+                textArray[3] = 4
+            }
+            gameController.publish('new_command', {robotID: textArray[0], landmarkID: textArray[1] + '-' + textArray[2] + '-' + textArray[3]})
+            
+        }
+    }
+)
