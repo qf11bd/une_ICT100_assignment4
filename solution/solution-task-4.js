@@ -14,19 +14,23 @@ or false otherwise.
 */
 
 async function attendCustomerRequest(customerLocation, customerName){
+    gameController.log(billTotal['table-1-1'])
     gameController.log(`Calling attendCustomerRequest('${customerLocation}', '${customerName}')`);
     if (gameController.canAcquireRobot('green')) {
         safeTeleportTo('green', customerLocation)
         await gameController.sleep(10000);
         let order = await gameController.attendCustomerRequest('green')
-        let orderArray = order.split(" ")
-        if (orderArray.includes('bill' || 'total')) {
-            gameController.logEvent('ITS A BILL')
+        
+        if (order.includes("bill") || order.includes("total") || order.includes("pay") || order.includes("cheque") || order.includes("check")) {
+            gameController.billCustomer('green', billTotal[customerLocation])
+            console.log(billTotal[customerLocation])
         } else {
+            let orderArray = order.split(" ")
+            
             gameController.logEvent('ITS NOT A BILL')
         }
-        console.log(orderArray)
-        console.log(gameController.getMenuList())
+        // console.log(orderArray)
+        // console.log(gameController.getMenuList())
 
     } else if (gameController.canAcquireRobot('yellow')) {
 
