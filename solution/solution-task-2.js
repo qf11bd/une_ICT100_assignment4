@@ -41,6 +41,7 @@ async function safeTeleportTo(robotID, landmarkID){
             gameController.releaseRobot(occupiedID, token2)
             await gameController.teleportRobotToLandmark(robotID, landmarkID)
             gameController.releaseRobot(robotID, token)
+
         }
     }
     
