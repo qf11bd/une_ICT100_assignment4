@@ -15,10 +15,28 @@ return a Promise. Remember to use await if you want to wait for the
 result of the Promise.
 
 */
+let token
 
 async function safeTeleportTo(robotID, landmarkID){
-    // You can remove/edit these lines of code
     gameController.log(`Calling safeTeleportTo('${robotID}', '${landmarkID}')`);
+
+    if (gameController.canRobotTeleportToLandmark(robotID, landmarkID)) {
+        gameController.teleportRobotToLandmark(robotID, landmarkID)
+        gameController.releaseRobot(robotID, token)
+    } else {
+        let occupiedID = gameController.whichRobotIsAtLandmark(landmarkID)
+        if (gameController.canAcquireRobot(occupiedID)) {
+            gameController.logEvent('Can acquire blocking bot')
+            let token1 = await gameController.acquireRobot(occupiedID, true)
+            gameController.teleportRobotAtHome(occupiedID)
+            gameController.releaseRobot(occupiedID, token1)
+            gameController.teleportRobotToLandmark(robotID, landmarkID)
+            gameController.releaseRobot(robotID, token)
+        } else {
+            gameController.logEvent('Couldnt acquire blocking bot')
+        }
+    }
+    
     await gameController.sleep(5000);
     /*
     IMPORTANT ASSUMPTION! The robot with ID robotID used in this function
