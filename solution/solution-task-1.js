@@ -17,3 +17,27 @@ As long as the parser and publisher are correct it is not
 important if the speech-to-text fails to correctly recognise
 the voice command.
 */
+
+// Define function for reading input text
+function readInputText(clearInput) {
+    let inputTextBox = document.getElementById('input-text-command')
+    let textCommand = inputTextBox.value
+    if (clearInput == true) {
+        inputTextBox
+    }
+    return textCommand
+}
+
+// Initialise constant for page enter button
+const enterButton = document.getElementById('button-text-command')
+
+
+
+
+
+gameController.publish('new_command', {
+    robotID: 'value1',
+    landmarkID: 'value2'
+})
+
+gameController.subscribe('new_command')
