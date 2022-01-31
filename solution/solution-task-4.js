@@ -14,29 +14,82 @@ or false otherwise.
 */
 
 async function attendCustomerRequest(customerLocation, customerName){
-    gameController.log(billTotal['table-1-1'])
     gameController.log(`Calling attendCustomerRequest('${customerLocation}', '${customerName}')`);
     if (gameController.canAcquireRobot('green')) {
-        safeTeleportTo('green', customerLocation)
-        await gameController.sleep(10000);
-        let order = await gameController.attendCustomerRequest('green')
-        
-        if (order.includes("bill") || order.includes("total") || order.includes("pay") || order.includes("cheque") || order.includes("check")) {
-            gameController.billCustomer('green', billTotal[customerLocation])
-            console.log(billTotal[customerLocation])
-        } else {
-            let orderArray = order.split(" ")
-            let menuArray = gameController.getMenuList()
-            const foodOrder = orderArray.filter(element => menuArray.includes(element))
-            gameController.newOrder(customerName, foodOrder)
+        let token;
+        try{
+            token = await gameController.acquireRobot('green', true);
+            safeTeleportTo('green', customerLocation)
+            await gameController.sleep(10000);
+            let order = await gameController.attendCustomerRequest('green')
+            
+            if (order.includes("bill") || order.includes("total") || order.includes("pay") || order.includes("cheque") || order.includes("check")) {
+                gameController.billCustomer('green', billTotal[customerLocation])
+                await gameController.sleep(7000);
+            } else {
+                let orderArray = order.split(" ")
+                let menuArray = gameController.getMenuList()
+                const foodOrder = orderArray.filter(element => menuArray.includes(element))
+                gameController.newOrder(customerName, foodOrder)
+                await gameController.sleep(5000);
+            }
+        } catch(err){
+            console.log('Error with acquiring robot')
+        } finally {
+            gameController.teleportRobotAtHome('green')
+            await gameController.sleep(2000)
+            gameController.releaseRobot('green', token);
         }
-        // console.log(orderArray)
-        // console.log(gameController.getMenuList())
-
     } else if (gameController.canAcquireRobot('yellow')) {
-
+        let token;
+        try{
+            token = await gameController.acquireRobot('yellow', true);
+            safeTeleportTo('yellow', customerLocation)
+            await gameController.sleep(10000);
+            let order = await gameController.attendCustomerRequest('yellow')
+            
+            if (order.includes("bill") || order.includes("total") || order.includes("pay") || order.includes("cheque") || order.includes("check")) {
+                gameController.billCustomer('yellow', billTotal[customerLocation])
+                await gameController.sleep(7000);
+            } else {
+                let orderArray = order.split(" ")
+                let menuArray = gameController.getMenuList()
+                const foodOrder = orderArray.filter(element => menuArray.includes(element))
+                gameController.newOrder(customerName, foodOrder)
+                await gameController.sleep(5000);
+            }
+        } catch(err){
+            console.log('Error with acquiring robot')
+        } finally {
+            gameController.teleportRobotAtHome('yellow')
+            await gameController.sleep(2000)
+            gameController.releaseRobot('yellow', token);
+        }
     } else if (gameController.canAcquireRobot('purple')) {
-
+        let token;
+        try{
+            token = await gameController.acquireRobot('purple', true);
+            safeTeleportTo('purple', customerLocation)
+            await gameController.sleep(10000);
+            let order = await gameController.attendCustomerRequest('purple')
+            
+            if (order.includes("bill") || order.includes("total") || order.includes("pay") || order.includes("cheque") || order.includes("check")) {
+                gameController.billCustomer('purple', billTotal[customerLocation])
+                await gameController.sleep(7000);
+            } else {
+                let orderArray = order.split(" ")
+                let menuArray = gameController.getMenuList()
+                const foodOrder = orderArray.filter(element => menuArray.includes(element))
+                gameController.newOrder(customerName, foodOrder)
+                await gameController.sleep(5000);
+            }
+        } catch(err){
+            console.log('Error with acquiring robot')
+        } finally {
+            gameController.teleportRobotAtHome('purple')
+            await gameController.sleep(2000)
+            gameController.releaseRobot('purple', token);
+        }
     } else {
         await gameController.sleep(10000);
         attendCustomerRequest(customerLocation, customerName)
