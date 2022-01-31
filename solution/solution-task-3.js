@@ -43,7 +43,9 @@ async function welcomeAndSeatCustomer(){
             safeTeleportTo('green', freeSeat)
             await gameController.sleep(10000)
             gameController.seatCustomer('green')
-            await gameController.sleep(2000)
+            await gameController.sleep(5000)
+            gameController.teleportRobotAtHome('green')
+            await gameController.sleep(10000)
             gameController.releaseRobot('green', token);
         }
     } else if (gameController.canAcquireRobot('yellow')) {
@@ -72,16 +74,18 @@ async function welcomeAndSeatCustomer(){
             safeTeleportTo('yellow', freeSeat)
             await gameController.sleep(10000)
             gameController.seatCustomer('yellow')
-            await gameController.sleep(2000)
+            await gameController.sleep(5000)
+            gameController.teleportRobotAtHome('yellow')
+            await gameController.sleep(10000)
             gameController.releaseRobot('yellow', token);
         }       
-    } else if (gameController.canAcquireRobot('purple')) {
+    } else if (gameController.canAcquireRobot('pink')) {
         let token;
         try{
-            token = await gameController.acquireRobot('purple', true);
-            safeTeleportTo('purple', 'reception')
+            token = await gameController.acquireRobot('pink', true);
+            safeTeleportTo('pink', 'reception')
             await gameController.sleep(7000)
-            await gameController.pickUpCustomer('purple')
+            await gameController.pickUpCustomer('pink')
         } catch(err){
             console.log('Error with acquiring robot')
         } finally {
@@ -98,11 +102,13 @@ async function welcomeAndSeatCustomer(){
                 }
             }
             await gameController.sleep(10000)
-            safeTeleportTo('purple', freeSeat)
+            safeTeleportTo('pink', freeSeat)
             await gameController.sleep(10000)
-            gameController.seatCustomer('purple')
-            await gameController.sleep(2000)
-            gameController.releaseRobot('purple', token);
+            gameController.seatCustomer('pink')
+            await gameController.sleep(5000)
+            gameController.teleportRobotAtHome('pink')
+            await gameController.sleep(10000)
+            gameController.releaseRobot('pink', token);
         }    
     } else {
         await gameController.sleep(5000)

@@ -107,34 +107,34 @@ async function deliverFood(foodName, customerLocation){
             await gameController.sleep(2000)
             gameController.releaseRobot('yellow', token);
         }
-    } else if (gameController.canAcquireRobot('purple')) {
+    } else if (gameController.canAcquireRobot('pink')) {
         let token;
         try{
             let clean = await gameController.isSeatClean(customerLocation)
-            let grabFood = await gameController.canRobotGrabFood('purple')
+            let grabFood = await gameController.canRobotGrabFood('pink')
             if ((clean !== false) && (grabFood !== false)) {
-                token = await gameController.acquireRobot('purple', true);
-                safeTeleportTo('purple', 'kitchen')
+                token = await gameController.acquireRobot('pink', true);
+                safeTeleportTo('pink', 'kitchen')
                 await gameController.sleep(10000);
-                gameController.takeFood('purple')
+                gameController.takeFood('pink')
                 await gameController.sleep(3000);
-                safeTeleportTo('purple', customerLocation)
+                safeTeleportTo('pink', customerLocation)
                 await gameController.sleep(10000);
-                gameController.serveFood('purple')
+                gameController.serveFood('pink')
                 await gameController.sleep(7000);
             } else if (grabFood !== false) {
-                token = await gameController.acquireRobot('purple', true);
-                safeTeleportTo('purple', customerLocation)
+                token = await gameController.acquireRobot('pink', true);
+                safeTeleportTo('pink', customerLocation)
                 await gameController.sleep(10000);
-                gameController.cleanSeat('purple')
+                gameController.cleanSeat('pink')
                 await gameController.sleep(5000);
-                safeTeleportTo('purple', 'kitchen')
+                safeTeleportTo('pink', 'kitchen')
                 await gameController.sleep(10000);
-                gameController.takeFood('purple', foodName)
+                gameController.takeFood('pink', foodName)
                 await gameController.sleep(3000);
-                safeTeleportTo('purple', customerLocation)
+                safeTeleportTo('pink', customerLocation)
                 await gameController.sleep(10000);
-                gameController.serveFood('purple')
+                gameController.serveFood('pink')
                 await gameController.sleep(7000);
             } else {
                 await gameController.sleep(10000)
@@ -146,9 +146,9 @@ async function deliverFood(foodName, customerLocation){
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
             console.log(billTotal[customerLocation])
-            gameController.teleportRobotAtHome('purple')
+            gameController.teleportRobotAtHome('pink')
             await gameController.sleep(2000)
-            gameController.releaseRobot('purple', token);
+            gameController.releaseRobot('pink', token);
         }
     } else {
         await gameController.sleep(10000);

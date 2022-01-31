@@ -70,16 +70,16 @@ async function attendCustomerRequest(customerLocation, customerName){
             await gameController.sleep(2000)
             gameController.releaseRobot('yellow', token);
         }
-    } else if (gameController.canAcquireRobot('purple')) {
+    } else if (gameController.canAcquireRobot('pink')) {
         let token;
         try{
-            token = await gameController.acquireRobot('purple', true);
-            safeTeleportTo('purple', customerLocation)
+            token = await gameController.acquireRobot('pink', true);
+            safeTeleportTo('pink', customerLocation)
             await gameController.sleep(10000);
-            let order = await gameController.attendCustomerRequest('purple')
+            let order = await gameController.attendCustomerRequest('pink')
             
             if (order.includes("bill") || order.includes("total") || order.includes("pay") || order.includes("cheque") || order.includes("check")) {
-                gameController.billCustomer('purple', billTotal[customerLocation])
+                gameController.billCustomer('pink', billTotal[customerLocation])
                 await gameController.sleep(7000);
             } else {
                 let orderArray = order.split(" ")
@@ -91,9 +91,9 @@ async function attendCustomerRequest(customerLocation, customerName){
         } catch(err){
             console.log('Error with acquiring robot')
         } finally {
-            gameController.teleportRobotAtHome('purple')
+            gameController.teleportRobotAtHome('pink')
             await gameController.sleep(2000)
-            gameController.releaseRobot('purple', token);
+            gameController.releaseRobot('pink', token);
         }
     } else {
         await gameController.sleep(10000);

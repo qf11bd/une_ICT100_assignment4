@@ -9,6 +9,9 @@ You should have already completed all or part of the previous subtasks,
 now it is time to put them at work with subscribers!
 */
 function setupGameSubscribers(){
-    // You can change this line of code
     gameController.log(`Calling setupGameSubscribers()`);
+    gameController.subscribe('new_customer', welcomeAndSeatCustomer())
+    gameController.subscribe('customer_requiring_attention', attendCustomerRequest())
+    gameController.subscribe('food_ready', deliverFood())
+
 }
