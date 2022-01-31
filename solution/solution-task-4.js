@@ -26,8 +26,9 @@ async function attendCustomerRequest(customerLocation, customerName){
             console.log(billTotal[customerLocation])
         } else {
             let orderArray = order.split(" ")
-            
-            gameController.logEvent('ITS NOT A BILL')
+            let menuArray = gameController.getMenuList()
+            const foodOrder = orderArray.filter(element => menuArray.includes(element))
+            gameController.newOrder(customerName, foodOrder)
         }
         // console.log(orderArray)
         // console.log(gameController.getMenuList())
