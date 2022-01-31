@@ -54,12 +54,15 @@ async function welcomeAndSeatCustomer(){
                 await gameController.teleportRobotAtHome('green')
                 // await gameController.sleep(10000)
                 await gameController.releaseRobot('green', token);
+            } else {
+                await gameController.releaseRobot('green', token);
             }
+            // await gameController.releaseRobot('green', token)
         }
     } else if (gameController.canAcquireRobot('yellow')) {
-        let token;
+        let token11;
         try{
-            token = await gameController.acquireRobot('yellow', true);
+            token11 = await gameController.acquireRobot('yellow', true);
             let outcome = await safeTeleportTo('yellow', 'reception')
             // await gameController.sleep(7000)
             if (outcome !== false) {
@@ -90,13 +93,16 @@ async function welcomeAndSeatCustomer(){
                 // await gameController.sleep(5000)
                 await gameController.teleportRobotAtHome('yellow')
                 // await gameController.sleep(10000)
-                await gameController.releaseRobot('yellow', token);
+                await gameController.releaseRobot('yellow', token11);
+            } else {
+                await gameController.releaseRobot('yellow', token11);
             }
+            // await gameController.releaseRobot('yellow', token11)
         }
     } else if (gameController.canAcquireRobot('pink')) {
-        let token;
+        let token22;
         try{
-            token = await gameController.acquireRobot('pink', true);
+            token22 = await gameController.acquireRobot('pink', true);
             let outcome = await safeTeleportTo('pink', 'reception')
             // await gameController.sleep(7000)
             if (outcome !== false) {
@@ -127,8 +133,11 @@ async function welcomeAndSeatCustomer(){
                 // await gameController.sleep(5000)
                 await gameController.teleportRobotAtHome('pink')
                 // await gameController.sleep(10000)
-                await gameController.releaseRobot('pink', token);
+                await gameController.releaseRobot('pink', token22);
+            } else {
+                await gameController.releaseRobot('pink', token22);
             }
+            // await gameController.releaseRobot('pink', token22)
         }
     } else {
         await gameController.sleep(5000)
