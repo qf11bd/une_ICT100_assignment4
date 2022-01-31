@@ -21,7 +21,7 @@ async function safeTeleportTo(robotID, landmarkID){
     gameController.log(`Calling safeTeleportTo('${robotID}', '${landmarkID}')`);
 
     if (gameController.canRobotTeleportToLandmark(robotID, landmarkID)) {
-        gameController.teleportRobotToLandmark(robotID, landmarkID)
+        outcome = await gameController.teleportRobotToLandmark(robotID, landmarkID)
         gameController.releaseRobot(robotID, token)
 
     } else {
@@ -31,7 +31,7 @@ async function safeTeleportTo(robotID, landmarkID){
             let token1 = await gameController.acquireRobot(occupiedID, true)
             await gameController.teleportRobotAtHome(occupiedID)
             gameController.releaseRobot(occupiedID, token1)
-            await gameController.teleportRobotToLandmark(robotID, landmarkID)
+            outcome = await gameController.teleportRobotToLandmark(robotID, landmarkID)
             gameController.releaseRobot(robotID, token)
 
         } else {
@@ -39,13 +39,13 @@ async function safeTeleportTo(robotID, landmarkID){
             let token2 = await gameController.acquireRobot(occupiedID, false)
             await gameController.teleportRobotAtHome(occupiedID)
             gameController.releaseRobot(occupiedID, token2)
-            await gameController.teleportRobotToLandmark(robotID, landmarkID)
+            outcome = await gameController.teleportRobotToLandmark(robotID, landmarkID)
             gameController.releaseRobot(robotID, token)
 
         }
     }
-    
-    await gameController.sleep(5000);
+    return outcome
+    // await gameController.sleep(5000);
     /*
     IMPORTANT ASSUMPTION! The robot with ID robotID used in this function
     has already been acquired outside this function.

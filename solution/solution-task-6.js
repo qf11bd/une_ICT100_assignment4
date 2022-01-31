@@ -10,8 +10,8 @@ now it is time to put them at work with subscribers!
 */
 function setupGameSubscribers(){
     gameController.log(`Calling setupGameSubscribers()`);
-    gameController.subscribe('new_customer', welcomeAndSeatCustomer())
-    gameController.subscribe('customer_requiring_attention', attendCustomerRequest())
-    gameController.subscribe('food_ready', deliverFood())
+    gameController.subscribe('new_customer', welcomeAndSeatCustomer)
+    gameController.subscribe('customer_requiring_attention', attendCustomerRequest)
+    gameController.subscribe('food_ready', deliverFood)
 
 }
