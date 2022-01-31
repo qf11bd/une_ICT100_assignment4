@@ -13,6 +13,11 @@ The function should return true if successful,
 or false otherwise.
 */
 
+// Function for attending customer request, if else main statements to allow for robots being  busy
+// Checks string for 'bill' key words, and processes bill request based on totals for that seat location
+// Food ordering turns the request string into an array, and compares it for similarities against the menu
+// Robot is moved back home and released after completing the function
+
 async function attendCustomerRequest(customerLocation, customerName){
     gameController.log(`Calling attendCustomerRequest('${customerLocation}', '${customerName}')`);
     if (gameController.canAcquireRobot('green')) {
