@@ -17,7 +17,6 @@ or false otherwise.
 // Checks string for 'bill' key words, and processes bill request based on totals for that seat location
 // Food ordering turns the request string into an array, and compares it for similarities against the menu
 // Robot is moved back home and released after completing the function
-
 async function attendCustomerRequest(customerLocation, customerName){
     gameController.log(`Calling attendCustomerRequest('${customerLocation}', '${customerName}')`);
     if (gameController.canAcquireRobot('green')) {
@@ -40,7 +39,7 @@ async function attendCustomerRequest(customerLocation, customerName){
                 }
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring attend green robot')
         } finally {
             await gameController.teleportRobotAtHome('green')
             // await gameController.sleep(2000)
@@ -66,7 +65,7 @@ async function attendCustomerRequest(customerLocation, customerName){
                 }
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring attend yellow')
         } finally {
             await gameController.teleportRobotAtHome('yellow')
             // await gameController.sleep(2000)
@@ -93,15 +92,15 @@ async function attendCustomerRequest(customerLocation, customerName){
             }
             
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring attend pink')
         } finally {
             await gameController.teleportRobotAtHome('pink')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('pink', token);
         }
     } else {
-        await gameController.sleep(10000);
+        await gameController.sleep(2000);
         attendCustomerRequest(customerLocation, customerName)
     }
-    // await gameController.sleep(5000);
+    // await gameController.sleep(3000);
 }

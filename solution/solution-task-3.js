@@ -14,17 +14,13 @@ or false otherwise.
 // Initial versions of this function referenced a 'findTable' function in order to minimise replication of code
 // Unfurtunately, this broke the scoring system (with it thinking the test had completed when calling the additional function)
 // Loop iteration used to search for an empty seat. Sleeps utilised to allow time for each sequence to complete prior to proceeding
-
-
-
 async function welcomeAndSeatCustomer(){
     gameController.log(`Calling welcomeAndSeatCustomer()`);
     if (gameController.canAcquireRobot('green')) {
-        let token;
+        let token33;
         try{
-            token = await gameController.acquireRobot('green', true);
+            token33 = await gameController.acquireRobot('green', true);
             let outcome = await safeTeleportTo('green', 'reception')
-            // await gameController.sleep(7000)
             if (outcome !== false) {
                 await gameController.pickUpCustomer('green')
             } else {
@@ -32,7 +28,7 @@ async function welcomeAndSeatCustomer(){
                 await gameController.pickUpCustomer('green')
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring welcome green')
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
@@ -47,24 +43,20 @@ async function welcomeAndSeatCustomer(){
                 }
             }
             outcome = await safeTeleportTo('green', freeSeat)
-            // await gameController.sleep(10000)
             if (outcome !== false) {
                 await gameController.seatCustomer('green')
-                // await gameController.sleep(5000)
                 await gameController.teleportRobotAtHome('green')
-                // await gameController.sleep(10000)
-                await gameController.releaseRobot('green', token);
+                await gameController.releaseRobot('green', token33);
             } else {
-                await gameController.releaseRobot('green', token);
+                await gameController.releaseRobot('green', token33);
             }
-            // await gameController.releaseRobot('green', token)
+            await gameController.releaseRobot('green', token33)
         }
     } else if (gameController.canAcquireRobot('yellow')) {
         let token11;
         try{
             token11 = await gameController.acquireRobot('yellow', true);
             let outcome = await safeTeleportTo('yellow', 'reception')
-            // await gameController.sleep(7000)
             if (outcome !== false) {
                 await gameController.pickUpCustomer('yellow')
             } else {
@@ -72,7 +64,7 @@ async function welcomeAndSeatCustomer(){
                 await gameController.pickUpCustomer('yellow')
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring welcome yellow')
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
@@ -87,24 +79,20 @@ async function welcomeAndSeatCustomer(){
                 }
             }
             outcome = await safeTeleportTo('yellow', freeSeat)
-            // await gameController.sleep(10000)
             if (outcome !== false) {
                 await gameController.seatCustomer('yellow')
-                // await gameController.sleep(5000)
                 await gameController.teleportRobotAtHome('yellow')
-                // await gameController.sleep(10000)
                 await gameController.releaseRobot('yellow', token11);
             } else {
                 await gameController.releaseRobot('yellow', token11);
             }
-            // await gameController.releaseRobot('yellow', token11)
+            await gameController.releaseRobot('yellow', token11)
         }
     } else if (gameController.canAcquireRobot('pink')) {
         let token22;
         try{
             token22 = await gameController.acquireRobot('pink', true);
             let outcome = await safeTeleportTo('pink', 'reception')
-            // await gameController.sleep(7000)
             if (outcome !== false) {
                 await gameController.pickUpCustomer('pink')
             } else {
@@ -112,7 +100,7 @@ async function welcomeAndSeatCustomer(){
                 await gameController.pickUpCustomer('pink')
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring welcome pink')
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
@@ -127,21 +115,17 @@ async function welcomeAndSeatCustomer(){
                 }
             }
             outcome = await safeTeleportTo('pink', freeSeat)
-            // await gameController.sleep(10000)
             if (outcome !== false) {
                 await gameController.seatCustomer('pink')
-                // await gameController.sleep(5000)
                 await gameController.teleportRobotAtHome('pink')
-                // await gameController.sleep(10000)
                 await gameController.releaseRobot('pink', token22);
             } else {
                 await gameController.releaseRobot('pink', token22);
             }
-            // await gameController.releaseRobot('pink', token22)
+            await gameController.releaseRobot('pink', token22)
         }
     } else {
-        await gameController.sleep(5000)
+        await gameController.sleep(2000)
         welcomeAndSeatCustomer()
     }
-    // await gameController.sleep(5000);
 }

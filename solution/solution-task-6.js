@@ -11,7 +11,22 @@ now it is time to put them at work with subscribers!
 function setupGameSubscribers(){
     gameController.log(`Calling setupGameSubscribers()`);
     gameController.subscribe('new_customer', welcomeAndSeatCustomer)
-    gameController.subscribe('customer_requiring_attention', attendCustomerRequest)
-    gameController.subscribe('food_ready', deliverFood)
-
+    gameController.subscribe('customer_requiring_attention', async (msg) => {
+        try{
+            await attendCustomerRequest(msg.customerLocation, msg.customerName);
+        } catch (err) {
+            gameController.logError(`Attending failed ${err.stack}`);
+        } finally {
+            // gameController.publish('command_executed', {});
+        }
+    });
+    gameController.subscribe('food_ready', async (msg) => {
+        try{
+            await deliverFood(msg.foodName, msg.landmarkID);
+        } catch (err) {
+            gameController.logError(`Food ready failed ${err.stack}`);
+        } finally {
+            // gameController.publish('command_executed', {});
+        }
+    });
 }

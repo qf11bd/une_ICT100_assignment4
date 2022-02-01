@@ -18,26 +18,25 @@ or false otherwise.
 // Robot first checks if the seat is clean, and if the robot can grab food
 // If seat isn't clean, robot cleans before teleporting to the kitchen to grab the food
 // After serving the food, the total of that food is added to tbe bill total for that seat
-
 async function deliverFood(foodName, customerLocation){
-    gameController.log(`Calling attendCustomerRequest('${customerLocation}', '${foodName}')`);
+    gameController.log(`Calling deliverFood('${customerLocation}', '${foodName}')`);
     if (gameController.canAcquireRobot('green')) {
-        let token;
+        let token66;
         try{
-            let clean = await gameController.isSeatClean(customerLocation)
+            let clean = gameController.isSeatClean(customerLocation)
             let grabFood = await gameController.canRobotGrabFood('green')
             if ((clean !== false) && (grabFood !== false)) {
-                token = await gameController.acquireRobot('green', true);
+                token66 = await gameController.acquireRobot('green', true);
                 await safeTeleportTo('green', 'kitchen')
                 // await gameController.sleep(10000);
-                await gameController.takeFood('green')
+                await gameController.takeFood('green', foodName)
                 // await gameController.sleep(3000);
-                safeTeleportTo('green', customerLocation)
+                await safeTeleportTo('green', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.serveFood('green')
                 // await gameController.sleep(7000);
             } else if (grabFood !== false) {
-                token = await gameController.acquireRobot('green', true);
+                token66 = await gameController.acquireRobot('green', true);
                 await safeTeleportTo('green', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.cleanSeat('green')
@@ -55,32 +54,32 @@ async function deliverFood(foodName, customerLocation){
                 deliverFood(foodName, customerLocation)
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring deliverFood green')
         } finally {
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
-            console.log(billTotal[customerLocation])
+            // console.log(billTotal[customerLocation])
             await gameController.teleportRobotAtHome('green')
             // await gameController.sleep(2000)
-            await gameController.releaseRobot('green', token);
+            await gameController.releaseRobot('green', token66);
         }
     } else if (gameController.canAcquireRobot('yellow')) {
-        let token;
+        let token77;
         try{
-            let clean = await gameController.isSeatClean(customerLocation)
+            let clean = gameController.isSeatClean(customerLocation)
             let grabFood = await gameController.canRobotGrabFood('yellow')
             if ((clean !== false) && (grabFood !== false)) {
-                token = await gameController.acquireRobot('yellow', true);
+                token77 = await gameController.acquireRobot('yellow', true);
                 await safeTeleportTo('yellow', 'kitchen')
                 // await gameController.sleep(10000);
-                gameController.takeFood('yellow')
+                await gameController.takeFood('yellow', foodName)
                 // await gameController.sleep(3000);
                 await safeTeleportTo('yellow', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.serveFood('yellow')
                 // await gameController.sleep(7000);
             } else if (grabFood !== false) {
-                token = await gameController.acquireRobot('yellow', true);
+                token77 = await gameController.acquireRobot('yellow', true);
                 await safeTeleportTo('yellow', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.cleanSeat('yellow')
@@ -98,32 +97,32 @@ async function deliverFood(foodName, customerLocation){
                 deliverFood(foodName, customerLocation)
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring deliverFood yellow')
         } finally {
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
-            console.log(billTotal[customerLocation])
+            // console.log(billTotal[customerLocation])
             await gameController.teleportRobotAtHome('yellow')
             // await gameController.sleep(2000)
-            await gameController.releaseRobot('yellow', token);
+            await gameController.releaseRobot('yellow', token77);
         }
     } else if (gameController.canAcquireRobot('pink')) {
-        let token;
+        let token88;
         try{
-            let clean = await gameController.isSeatClean(customerLocation)
+            let clean = gameController.isSeatClean(customerLocation)
             let grabFood = await gameController.canRobotGrabFood('pink')
             if ((clean !== false) && (grabFood !== false)) {
-                token = await gameController.acquireRobot('pink', true);
+                token88 = await gameController.acquireRobot('pink', true);
                 await safeTeleportTo('pink', 'kitchen')
                 // await gameController.sleep(10000);
-                gameController.takeFood('pink')
+                await gameController.takeFood('pink', foodName)
                 // await gameController.sleep(3000);
                 await safeTeleportTo('pink', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.serveFood('pink')
                 // await gameController.sleep(7000);
             } else if (grabFood !== false) {
-                token = await gameController.acquireRobot('pink', true);
+                token88 = await gameController.acquireRobot('pink', true);
                 await safeTeleportTo('pink', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.cleanSeat('pink')
@@ -131,7 +130,7 @@ async function deliverFood(foodName, customerLocation){
                 await safeTeleportTo('pink', 'kitchen')
                 // await gameController.sleep(10000);
                 await gameController.takeFood('pink', foodName)
-                // await gameController.sleep(3000);
+                // await gameController.sleep(2000);
                 await safeTeleportTo('pink', customerLocation)
                 // await gameController.sleep(10000);
                 await gameController.serveFood('pink')
@@ -141,18 +140,18 @@ async function deliverFood(foodName, customerLocation){
                 deliverFood(foodName, customerLocation)
             }
         } catch(err){
-            console.log('Error with acquiring robot')
+            console.log('Error with acquiring deliverFood pink')
         } finally {
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
-            console.log(billTotal[customerLocation])
+            // console.log(billTotal[customerLocation])
             await gameController.teleportRobotAtHome('pink')
             // await gameController.sleep(2000)
-            await gameController.releaseRobot('pink', token);
+            await gameController.releaseRobot('pink', token88);
         }
     } else {
-        await gameController.sleep(10000);
-        attendCustomerRequest(customerLocation, customerName)
+        await gameController.sleep(2000);
+        deliverFood(foodName, customerLocation)
     }
-    // await gameController.sleep(5000);
+    //  await gameController.sleep(3000);
 }
