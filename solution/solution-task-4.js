@@ -41,7 +41,7 @@ async function attendCustomerRequest(customerLocation, customerName){
         } catch(err){
             console.log('Error with acquiring attend green robot')
         } finally {
-            await gameController.teleportRobotAtHome('green')
+            // await gameController.teleportRobotAtHome('green')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('green', token);
         }
@@ -67,7 +67,7 @@ async function attendCustomerRequest(customerLocation, customerName){
         } catch(err){
             console.log('Error with acquiring attend yellow')
         } finally {
-            await gameController.teleportRobotAtHome('yellow')
+            // await gameController.teleportRobotAtHome('yellow')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('yellow', token);
         }
@@ -94,7 +94,7 @@ async function attendCustomerRequest(customerLocation, customerName){
         } catch(err){
             console.log('Error with acquiring attend pink')
         } finally {
-            await gameController.teleportRobotAtHome('pink')
+            // await gameController.teleportRobotAtHome('pink')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('pink', token);
         }

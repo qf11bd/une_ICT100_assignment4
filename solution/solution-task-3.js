@@ -32,8 +32,8 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            for (let i = 1; i < 3; i++) {
-                for (let j = 1; j < 4; j ++) {
+            for (let i = 1; i < 4; i++) {
+                for (let j = 1; j < 5; j ++) {
                     if (gameController.isSeatFree('table-' + i + '-' + j)) {
                         freeSeat = 'table-' + i + '-' + j
                         console.log(freeSeat)
@@ -45,7 +45,7 @@ async function welcomeAndSeatCustomer(){
             outcome = await safeTeleportTo('green', freeSeat)
             if (outcome !== false) {
                 await gameController.seatCustomer('green')
-                await gameController.teleportRobotAtHome('green')
+                // await gameController.teleportRobotAtHome('green')
                 await gameController.releaseRobot('green', token33);
             } else {
                 await gameController.releaseRobot('green', token33);
@@ -68,8 +68,8 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            for (let i = 1; i < 3; i++) {
-                for (let j = 1; j < 4; j ++) {
+            for (let i = 1; i < 4; i++) {
+                for (let j = 1; j < 5; j ++) {
                     if (gameController.isSeatFree('table-' + i + '-' + j)) {
                         freeSeat = 'table-' + i + '-' + j
                         console.log(freeSeat)
@@ -81,7 +81,7 @@ async function welcomeAndSeatCustomer(){
             outcome = await safeTeleportTo('yellow', freeSeat)
             if (outcome !== false) {
                 await gameController.seatCustomer('yellow')
-                await gameController.teleportRobotAtHome('yellow')
+                // await gameController.teleportRobotAtHome('yellow')
                 await gameController.releaseRobot('yellow', token11);
             } else {
                 await gameController.releaseRobot('yellow', token11);
@@ -104,8 +104,8 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            for (let i = 1; i < 3; i++) {
-                for (let j = 1; j < 4; j ++) {
+            for (let i = 1; i < 4; i++) {
+                for (let j = 1; j < 5; j ++) {
                     if (gameController.isSeatFree('table-' + i + '-' + j)) {
                         freeSeat = 'table-' + i + '-' + j
                         console.log(freeSeat)
@@ -117,7 +117,7 @@ async function welcomeAndSeatCustomer(){
             outcome = await safeTeleportTo('pink', freeSeat)
             if (outcome !== false) {
                 await gameController.seatCustomer('pink')
-                await gameController.teleportRobotAtHome('pink')
+                // await gameController.teleportRobotAtHome('pink')
                 await gameController.releaseRobot('pink', token22);
             } else {
                 await gameController.releaseRobot('pink', token22);

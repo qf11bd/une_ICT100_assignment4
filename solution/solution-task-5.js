@@ -59,7 +59,7 @@ async function deliverFood(foodName, customerLocation){
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
             // console.log(billTotal[customerLocation])
-            await gameController.teleportRobotAtHome('green')
+            // await gameController.teleportRobotAtHome('green')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('green', token66);
         }
@@ -102,7 +102,7 @@ async function deliverFood(foodName, customerLocation){
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
             // console.log(billTotal[customerLocation])
-            await gameController.teleportRobotAtHome('yellow')
+            // await gameController.teleportRobotAtHome('yellow')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('yellow', token77);
         }
@@ -145,7 +145,7 @@ async function deliverFood(foodName, customerLocation){
             foodPrice = gameController.getFoodPrice(foodName)
             billTotal[customerLocation] = billTotal[customerLocation] + foodPrice
             // console.log(billTotal[customerLocation])
-            await gameController.teleportRobotAtHome('pink')
+            // await gameController.teleportRobotAtHome('pink')
             // await gameController.sleep(2000)
             await gameController.releaseRobot('pink', token88);
         }
