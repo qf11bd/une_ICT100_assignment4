@@ -34,6 +34,7 @@ function readInputText(clearInput) {
 // If array length is greater than 2, convert phonetic numbers to integers to be parsed by publish as a joined table number
 
 const enterButton = document.getElementById('button-text-command')
+const talkButton = document.getElementById('button-voice-command')
 
 enterButton.addEventListener(
     'click',
@@ -68,5 +69,43 @@ enterButton.addEventListener(
             gameController.publish('new_command', {robotID: textArray[0], landmarkID: textArray[1] + '-' + textArray[2] + '-' + textArray[3]})
             
         }
+    }
+)
+
+talkButton.addEventListener(
+    'click',
+    function(){
+        function repeat(transcription) {
+            text = transcription.toLowerCase()
+            let textArray = text.split(" ")
+            textArray = textArray.filter(v => v !== 'teleport')
+            textArray = textArray.filter(v => v !== 'go')
+            textArray = textArray.filter(v => v !== 'to')
+            textArray = textArray.filter(v => v !== 'move')
+            textArray = textArray.filter(v => v !== 'seat')
+            if (textArray.length == 2) {
+                gameController.publish('new_command', {robotID: textArray[0], landmarkID: textArray[1]})
+            } else {
+                if (textArray[2] == 'one') {
+                    textArray[2] = 1
+                } else if (textArray[2] == 'two') {
+                    textArray[2] = 2
+                } else if (textArray[2] == 'three') {
+                    textArray[2] = 3
+                }
+                if (textArray[3] == 'one') {
+                    textArray[3] = 1
+                } else if (textArray[3] == 'two') {
+                    textArray[3] = 2
+                } else if (textArray[3] == 'three') {
+                    textArray[3] = 3
+                } else if (textArray[3] == 'four') {
+                    textArray[3] = 4
+                }
+                gameController.publish('new_command', {robotID: textArray[0], landmarkID: textArray[1] + '-' + textArray[2] + '-' + textArray[3]})
+                
+            }
+        }
+        gameController.listen(repeat)
     }
 )

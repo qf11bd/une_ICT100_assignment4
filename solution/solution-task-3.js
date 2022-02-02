@@ -32,7 +32,7 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            for (let i = 1; i < 4; i++) {
+            for (let i = 3; i > 0; i--) {
                 for (let j = 1; j < 5; j ++) {
                     if (gameController.isSeatFree('table-' + i + '-' + j)) {
                         freeSeat = 'table-' + i + '-' + j
@@ -68,7 +68,7 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            for (let i = 1; i < 4; i++) {
+            for (let i = 3; i > 0; i--) {
                 for (let j = 1; j < 5; j ++) {
                     if (gameController.isSeatFree('table-' + i + '-' + j)) {
                         freeSeat = 'table-' + i + '-' + j
@@ -104,7 +104,7 @@ async function welcomeAndSeatCustomer(){
         } finally {
             let isFree = false
             let freeSeat = 'table-1-1'
-            for (let i = 1; i < 4; i++) {
+            for (let i = 3; i > 0; i--) {
                 for (let j = 1; j < 5; j ++) {
                     if (gameController.isSeatFree('table-' + i + '-' + j)) {
                         freeSeat = 'table-' + i + '-' + j

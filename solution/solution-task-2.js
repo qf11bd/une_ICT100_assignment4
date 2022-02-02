@@ -15,8 +15,10 @@ return a Promise. Remember to use await if you want to wait for the
 result of the Promise.
 
 */
-let token
 
+// Function moves robot if landmark free
+// If occupied, function tries to move blocking robot
+// If occupied and blocking robot is occupied, function waits for 10secs
 async function safeTeleportTo(robotID, landmarkID){
     gameController.log(`Calling safeTeleportTo('${robotID}', '${landmarkID}')`);
 
